@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>변하는 지구, 움직이는 땅</title>
+<meta name="description" content="중학교 2학년 과학 '지권의 변화' 개념 기반 교육과정 단원 설계">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: strata-banded single column; sticky section nav; each section is a "layer" of the unit */
+:root{
+  --bg:#f6f4ef; --surface:#ffffff; --fg:#22211e; --muted:#6b675e; --line:#ddd7cb;
+  --accent:#b4532a;      /* magma */
+  --accent-2:#2f6f6a;    /* mineral teal */
+  --band:#ece6da;
+  --tag-f:#2f6f6a; --tag-z:#7a5aa6; --tag-c:#b4532a; --tag-d:#8a7a2c;
+  --display:"Gowun Batang", "Nanum Myeongjo", serif;
+  --body:"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#191a19; --surface:#222321; --fg:#ebe8e1; --muted:#a7a299; --line:#3a3a36;
+  --accent:#e0794c; --accent-2:#6bb3ac; --band:#252623;
+  --tag-f:#6bb3ac; --tag-z:#b49ae0; --tag-c:#e0794c; --tag-d:#cdb95a; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#191a19; --surface:#222321; --fg:#ebe8e1; --muted:#a7a299; --line:#3a3a36;
+  --accent:#e0794c; --accent-2:#6bb3ac; --band:#252623;
+  --tag-f:#6bb3ac; --tag-z:#b49ae0; --tag-c:#e0794c; --tag-d:#cdb95a; color-scheme:dark; }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:64px}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--body); font-size:16px; line-height:1.75; word-break:keep-all}
+.wrap{max-width:960px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; line-height:1.3; margin:0}
+h2{font-size:clamp(1.6rem,3.5vw,2.1rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+a{color:var(--accent-2)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* hero */
+.hero{border-bottom:1px solid var(--line); padding-block:56px 40px; position:relative; overflow:hidden}
+.strata{position:absolute; inset:auto 0 0 0; height:14px; display:flex; flex-direction:column}
+.strata i{flex:1}
+.strata i:nth-child(1){background:color-mix(in srgb,var(--accent) 35%,transparent)}
+.strata i:nth-child(2){background:color-mix(in srgb,var(--accent-2) 30%,transparent)}
+.strata i:nth-child(3){background:color-mix(in srgb,var(--muted) 30%,transparent)}
+.eyebrow{font-size:.8rem; letter-spacing:.12em; color:var(--accent); font-weight:700}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem); margin-top:8px}
+.hero .lede{max-width:62ch; color:var(--muted); margin-top:16px; font-size:1.05rem}
+.meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; padding:0; list-style:none}
+.meta li{border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:4px 14px; font-size:.88rem}
+.meta b{color:var(--accent); font-weight:700}
+
+/* nav */
+nav.toc{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:color-mix(in srgb,var(--bg) 92%,transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--line)}
+nav.toc ul{display:flex; gap:4px; list-style:none; margin:0; padding-block:8px; overflow-x:auto; scrollbar-width:none}
+nav.toc a{display:block; white-space:nowrap; padding:6px 12px; border-radius:6px; text-decoration:none; color:var(--muted); font-size:.9rem}
+nav.toc a:hover{background:var(--band); color:var(--fg)}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--bg)}
+
+section{padding-block:56px; border-bottom:1px solid var(--line)}
+section:nth-of-type(even){background:var(--band)}
+.sec-head{display:flex; flex-direction:column; gap:6px; margin-bottom:28px}
+.sec-head .eyebrow{color:var(--muted)}
+.prose{max-width:65ch; display:grid; gap:14px}
+
+/* standards */
+.std{list-style:none; padding:0; margin:24px 0 0; display:grid; gap:10px}
+.std li{display:grid; grid-template-columns:max-content 1fr; gap:14px; align-items:baseline; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:12px 16px}
+.code{font-family:ui-monospace,Consolas,monospace; font-size:.85rem; color:var(--accent); font-weight:600; font-variant-numeric:tabular-nums}
+
+/* web */
+.web{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.core{grid-column:1/-1; border:2px dashed var(--accent); border-radius:10px; padding:20px; text-align:center; background:var(--surface)}
+.core .lens{color:var(--accent); font-weight:700}
+.strand{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px 18px; min-width:0}
+.strand h3{font-size:1.05rem; margin-bottom:8px}
+.strand h3 em{font-style:normal; color:var(--accent-2)}
+.strand ul{margin:0; padding-left:1.1em; color:var(--muted); font-size:.95rem}
+@media (max-width:760px){ .web{grid-template-columns:1fr} }
+
+/* generalizations */
+.legend{display:flex; flex-wrap:wrap; gap:12px; font-size:.85rem; color:var(--muted); margin-bottom:16px}
+.tag{display:inline-block; min-width:1.6em; text-align:center; font-size:.72rem; font-weight:700; border-radius:4px; padding:0 5px; color:var(--surface); line-height:1.6; vertical-align:2px}
+.tag.F{background:var(--tag-f)} .tag.Z{background:var(--tag-z)} .tag.C{background:var(--tag-c)} .tag.D{background:var(--tag-d)}
+details.gen{background:var(--surface); border:1px solid var(--line); border-radius:10px; margin-bottom:12px}
+details.gen summary{cursor:pointer; list-style:none; padding:16px 18px; display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:baseline}
+details.gen summary::-webkit-details-marker{display:none}
+details.gen summary .u{font-family:var(--display); font-weight:700; color:var(--accent); font-size:1.15rem}
+details.gen summary .chev{color:var(--muted); transition:transform .2s}
+details.gen[open] summary .chev{transform:rotate(90deg)}
+details.gen ol{margin:0; padding:0 18px 18px 18px; list-style:none; display:grid; gap:6px; border-top:1px solid var(--line); padding-top:14px}
+details.gen ol li{display:grid; grid-template-columns:3.2em auto 1fr; gap:8px; align-items:baseline; font-size:.95rem}
+details.gen ol li .qn{color:var(--muted); font-family:ui-monospace,Consolas,monospace; font-size:.82rem}
+
+/* K/S */
+.ks{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+@media (max-width:760px){ .ks{grid-template-columns:1fr} }
+.ks h3{margin-bottom:12px}
+.ks .grp{font-size:.8rem; letter-spacing:.06em; color:var(--muted); margin:16px 0 6px; font-weight:700}
+.ks ul{list-style:none; padding:0; margin:0; display:grid; gap:6px}
+.ks li{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:8px 12px; display:grid; grid-template-columns:2.6em 1fr; gap:8px; font-size:.95rem}
+
+/* assessment */
+.scenario{background:var(--fg); color:var(--bg); border-radius:12px; padding:24px 26px; display:grid; gap:10px}
+.scenario .yr{font-family:var(--display); font-size:2.4rem; color:var(--accent); line-height:1}
+.scenario p{max-width:65ch}
+.missions{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:20px}
+@media (max-width:760px){ .missions{grid-template-columns:1fr} }
+.mission{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px; display:grid; gap:10px; align-content:start; min-width:0}
+.mission .badge{display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; border-radius:50%; background:var(--accent); color:var(--surface); font-weight:700; font-family:var(--display)}
+.mission .top{display:flex; gap:10px; align-items:center}
+.mission .kind{font-size:.78rem; color:var(--muted)}
+.mission .data{font-size:.9rem; background:var(--band); border-radius:6px; padding:10px 12px}
+.mission .cond{font-size:.85rem; color:var(--muted); border-left:3px solid var(--accent-2); padding-left:10px}
+.mission .links{font-size:.8rem; color:var(--accent-2)}
+.table-scroll{overflow-x:auto; margin-top:16px; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:720px; font-size:.88rem}
+th,td{border-bottom:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top}
+thead th{background:var(--band); font-weight:700}
+tbody th{white-space:nowrap; color:var(--accent)}
+h3.sub{margin-top:40px; margin-bottom:6px}
+.note{color:var(--muted); font-size:.9rem}
+.diag{list-style:none; padding:0; margin:16px 0 0; display:grid; gap:10px; counter-reset:q}
+.diag li{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:12px 16px; display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:baseline}
+.diag .n{font-family:var(--display); font-weight:700; color:var(--accent)}
+.diag .u{font-size:.78rem; color:var(--muted); white-space:nowrap}
+@media (max-width:560px){ .diag li{grid-template-columns:auto 1fr} .diag .u{grid-column:2} }
+
+/* lessons */
+.lessons{position:relative; display:grid; gap:0}
+.phase{display:grid; grid-template-columns:200px 1fr; gap:24px; padding-block:22px; border-top:1px solid var(--line)}
+.phase:first-child{border-top:0}
+.phase aside{display:grid; gap:6px; align-content:start}
+.phase aside .range{font-family:var(--display); font-size:1.4rem; color:var(--accent); font-weight:700}
+.phase aside .ref{font-size:.82rem; color:var(--muted)}
+.lesson{display:grid; grid-template-columns:3.4em 1fr; gap:12px; padding-block:10px}
+.lesson + .lesson{border-top:1px dashed var(--line)}
+.lesson .no{font-variant-numeric:tabular-nums; font-weight:700; color:var(--accent-2); font-size:.95rem}
+.lesson .no small{display:block; font-weight:400; color:var(--muted); font-size:.72rem}
+.lesson h4{margin:0 0 4px; font-size:1rem}
+.lesson ul{margin:4px 0 0; padding-left:1.1em; font-size:.93rem}
+.lesson .stage{display:inline-block; font-size:.72rem; border:1px solid var(--line); border-radius:4px; padding:0 6px; color:var(--muted); margin-right:4px}
+@media (max-width:760px){ .phase{grid-template-columns:1fr; gap:8px} }
+
+/* notes */
+.cols{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+@media (max-width:760px){ .cols{grid-template-columns:1fr} }
+.cols > div{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px; min-width:0}
+.cols h3{font-size:1.05rem; margin-bottom:8px}
+.cols ol,.cols ul{margin:0; padding-left:1.2em; font-size:.93rem}
+.cols a{overflow-wrap:anywhere}
+footer{padding-block:32px 48px; color:var(--muted); font-size:.82rem}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">중학교 2학년 과학 · 개념 기반 교육과정 단원</div>
+    <h1>변하는 지구, 움직이는 땅</h1>
+    <p class="lede">우리가 살아가는 이 땅은 늘 같은 모습일까요, 아니면 아주 느리지만 계속 변하고 있을까요? 지진과 화산, 단단한 암석이 흙으로 바뀌는 과정, 산업에서 중요한 재료가 되는 광물. 서로 다른 이야기처럼 보이는 이 장면들 사이의 연결을 자료를 근거로 설명해 봅니다.</p>
+    <ul class="meta">
+      <li>개념적 렌즈 <b>변화</b></li>
+      <li>5주 · 18차시</li>
+      <li>단원: 지권의 변화</li>
+      <li>교사 김아름</li>
+    </ul>
+  </div>
+  <div class="strata" aria-hidden="true"><i></i><i></i><i></i></div>
+</header>
+
+<nav class="toc" aria-label="목차">
+  <ul class="wrap">
+    <li><a href="#overview">개요</a></li>
+    <li><a href="#web">단원 그물</a></li>
+    <li><a href="#gen">일반화·안내질문</a></li>
+    <li><a href="#ks">지식·기능</a></li>
+    <li><a href="#assess">평가</a></li>
+    <li><a href="#lessons">18차시 흐름</a></li>
+    <li><a href="#notes">교사 노트</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">단원 개요</span><h2>외우는 대신, 연결을 설명한다</h2></div>
+    <div class="prose">
+      <p>이 단원에서 우리는 지구에서 일어나는 변화를 그저 외우는 것이 아니라, 어디서 시작되어 어떤 과정을 거쳐 왜 이런 결과로 이어지는지를 자료를 근거로 설명하는 연습을 합니다. 광물과 암석을 관찰하고, 정보를 분류하며, 지도를 겹쳐 보면서 보이지 않던 관계를 찾아갑니다.</p>
+      <p>단원이 끝나면 지구의 변화를 <strong>구조와 과정, 그리고 상호작용</strong>으로 연결해 설명할 수 있고, 자료를 보고 “그래서 무엇을 알 수 있는가?”를 자신의 언어로 말할 수 있게 됩니다.</p>
+    </div>
+    <h3 class="sub">성취기준</h3>
+    <ul class="std">
+      <li><span class="code">9과09-01</span><span>지구계의 구성 요소를 알고, 지권의 층상 구조와 그 특징을 조사⋅발표할 수 있다.</span></li>
+      <li><span class="code">9과09-02</span><span>조암 광물의 주요 특성을 관찰하고, 암석과 광물의 활용 방안 및 자원으로서 가치에 대해 조사할 수 있다.</span></li>
+      <li><span class="code">9과09-03</span><span>지각을 이루는 암석을 생성 과정에 따라 분류하고, 암석의 순환 과정을 설명할 수 있다.</span></li>
+      <li><span class="code">9과09-04</span><span>풍화 과정을 이해하고, 토양 생성 과정을 풍화 작용의 예로 설명할 수 있다.</span></li>
+      <li><span class="code">9과09-05</span><span>대륙이동설을 이해하고, 지진과 화산이 발생하는 지역의 분포를 판의 경계와 관련지어 설명할 수 있다.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="web">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">단원 그물</span><h2>다섯 갈래의 스트랜드</h2></div>
+    <div class="web">
+      <div class="core">
+        <div>개념적 렌즈: <span class="lens">변화</span></div>
+        <p style="margin-top:6px; font-family:var(--display); font-size:1.15rem">핵심 아이디어 — 지구 시스템의 구성 요소가 상호작용하며 순환하고, 관찰을 통해 그 변화 양상을 예측한다</p>
+      </div>
+      <div class="strand"><h3>지구계와 지권의 <em>구조</em></h3><ul><li>지구계의 구성 요소(지권, 수권, 기권, 생물권)</li><li>지권의 층상 구조(지각, 맨틀, 외핵, 내핵)</li><li>각 층의 특징과 조성</li></ul></div>
+      <div class="strand"><h3>지각의 <em>구성</em></h3><ul><li>조암 광물의 개념과 주요 특성</li><li>생성 과정에 따른 암석의 분류(화성암, 퇴적암, 변성암)</li><li>암석과 광물의 활용(자원으로서의 가치)</li></ul></div>
+      <div class="strand"><h3>지권의 <em>변화</em></h3><ul><li>암석의 순환(화성암, 퇴적암, 변성암)</li><li>풍화 과정(토양 생성 과정)</li></ul></div>
+      <div class="strand"><h3>지권의 <em>운동</em></h3><ul><li>대륙이동설</li><li>판구조론</li><li>지진대와 화산대</li></ul></div>
+      <div class="strand"><h3>과학 과정 관련 개념</h3><ul><li>관찰</li><li>분류</li><li>관계</li><li>예측</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="gen">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">일반화와 안내질문</span><h2>다섯 개의 일반화</h2></div>
+    <div class="legend"><span><span class="tag F">F</span> 사실적</span><span><span class="tag Z">Z</span> 개념 형성</span><span><span class="tag C">C</span> 개념적</span><span><span class="tag D">D</span> 토론적</span></div>
+
+    <details class="gen" open>
+      <summary><span class="u">U1</span><span>지구는 상호작용하는 <b>시스템</b>이며, 물질과 에너지 이동이 끊임없는 <b>변화</b>를 만든다.</span><span class="chev">›</span></summary>
+      <ol>
+        <li><span class="qn">Q1a</span><span class="tag F">F</span><span>지구계는 어떤 구성 요소로 이루어져 있으며, 각 요소는 어떤 역할을 하는가?</span></li>
+        <li><span class="qn">Q1b</span><span class="tag Z">Z</span><span>지권의 층상 구조는 어떤 기준으로 구분되며, 이러한 구조는 어떤 변화를 가능하게 하는가?</span></li>
+        <li><span class="qn">Q1c</span><span class="tag Z">Z</span><span>지구 내부 구조는 지표 변화에 어떤 조건을 제공하는가?</span></li>
+        <li><span class="qn">Q1d</span><span class="tag C">C</span><span>한 지구계의 변화는 왜 다른 지구계의 변화로 이어지는가?</span></li>
+        <li><span class="qn">Q1e</span><span class="tag D">D</span><span>직접 관찰할 수 없는 지구 내부 구조에 대해 우리는 얼마나 신뢰할 수 있는 설명을 하고 있다고 말할 수 있을까?</span></li>
+      </ol>
+    </details>
+    <details class="gen">
+      <summary><span class="u">U2</span><span><b>분류와 관찰</b>을 통해 얻은 정보는 물질 간의 관계와 상호작용을 명확히 하고, 시스템의 변화 과정을 이해하는 데 기여한다.</span><span class="chev">›</span></summary>
+      <ol>
+        <li><span class="qn">Q2a</span><span class="tag F">F</span><span>광물을 관찰할 때 확인할 수 있는 성질에는 어떤 것들이 있는가?</span></li>
+        <li><span class="qn">Q2b</span><span class="tag F">F</span><span>같은 색의 광물이라도 다른 성질을 가질 수 있는 이유는 무엇인가?</span></li>
+        <li><span class="qn">Q2c</span><span class="tag Z">Z</span><span>우리가 관찰한 정보를 그냥 나열하는 것과, 기준을 세워 정리하는 것은 무엇이 다를까?</span></li>
+        <li><span class="qn">Q2d</span><span class="tag Z">Z</span><span>관찰 결과를 분류하기 전과 후에 보이는 정보는 어떻게 달라졌을까?</span></li>
+        <li><span class="qn">Q2e</span><span class="tag C">C</span><span>분류와 관찰은 물질들의 관계를 드러내는 데 어떤 역할을 하며, 이것이 시스템의 변화 과정을 이해하는 데 왜 필요한가?</span></li>
+        <li><span class="qn">Q2f</span><span class="tag D">D</span><span>과학에서 분류는 사실을 정리하는 과정일까, 해석을 포함한 판단일까?</span></li>
+        <li><span class="qn">Q2g</span><span class="tag D">D</span><span>자연을 분류하고 체계화하는 인간의 시도는 자연을 올바르게 이해하는 방식인가?</span></li>
+      </ol>
+    </details>
+    <details class="gen">
+      <summary><span class="u">U3</span><span>물질(암석과 광물)의 <b>구조</b>와 형성 과정은 <b>성질</b>을 결정하고, 성질은 인간의 <b>활용</b> 방식을 결정한다.</span><span class="chev">›</span></summary>
+      <ol>
+        <li><span class="qn">Q3a</span><span class="tag F">F</span><span>이 상황에서는 물질에 어떤 성질이 필요할까?</span></li>
+        <li><span class="qn">Q3b</span><span class="tag Z">Z</span><span>이 활용에서 결정적인 성질은 무엇일까?</span></li>
+        <li><span class="qn">Q3c</span><span class="tag Z">Z</span><span>암석들 중에는 같은 광물을 포함하고 있는데 왜 각기 다른 성질을 지닌 걸까?</span></li>
+        <li><span class="qn">Q3d</span><span class="tag C">C</span><span>암석의 구조나 조성은 그 성질에 어떤 영향을 주는가?</span></li>
+        <li><span class="qn">Q3e</span><span class="tag C">C</span><span>암석의 구조나 조성에 영향을 미치는 요인은 무엇인가? 암석들은 만들어질 때 어떤 서로 다른 조건을 겪었을까?</span></li>
+        <li><span class="qn">Q3f</span><span class="tag C">C</span><span>이 활용이 다른 광물에는 어려운 이유는 무엇인가?</span></li>
+        <li><span class="qn">Q3g</span><span class="tag C">C</span><span>성질-구조-형성-활용은 어떻게 연결되는가?</span></li>
+        <li><span class="qn">Q3h</span><span class="tag C">C</span><span>이 광물이 자원으로 가치가 있다고 말할 수 있는 근거는 무엇인가?</span></li>
+        <li><span class="qn">Q3i</span><span class="tag D">D</span><span>자연에서 얻은 광물 자원을 인간이 자유롭게 활용해도 되는가?</span></li>
+      </ol>
+    </details>
+    <details class="gen">
+      <summary><span class="u">U4</span><span>자연의 구성 요소는 <b>변화</b>와 <b>순환</b>을 거치며 시스템의 구조와 기능을 지속적으로 변화시킨다.</span><span class="chev">›</span></summary>
+      <ol>
+        <li><span class="qn">Q4a</span><span class="tag F">F</span><span>단단한 암석은 어떤 작용으로 잘게 부서지는가?</span></li>
+        <li><span class="qn">Q4b</span><span class="tag F">F</span><span>암석은 어떤 조건을 거치면 이전과 다른 성질의 암석이 될 수 있을까?</span></li>
+        <li><span class="qn">Q4c</span><span class="tag F">F</span><span>토양은 암석과 무엇이 다른 상태이며, 그 차이는 어떤 과정에서 생겼을까?</span></li>
+        <li><span class="qn">Q4d</span><span class="tag C">C</span><span>암석의 변화는 지표의 구조를 어떻게 바꿀까?</span></li>
+        <li><span class="qn">Q4e</span><span class="tag C">C</span><span>구조가 바뀌면 지권의 기능은 어떻게 달라질까?</span></li>
+        <li><span class="qn">Q4f</span><span class="tag C">C</span><span>한 구성 요소의 변화는 다른 요소들에 어떤 영향을 줄까?</span></li>
+        <li><span class="qn">Q4g</span><span class="tag C">C</span><span>이런 반복은 자연 시스템을 어떻게 만드는가?</span></li>
+      </ol>
+    </details>
+    <details class="gen">
+      <summary><span class="u">U5</span><span>지표면에서 관찰되는 구조적인 <b>변화</b>는 반복적이고 <b>예측</b> 가능한 양상을 보이며, 이는 판의 경계와 관련된 <b>움직임</b>과 연결되어 있다.</span><span class="chev">›</span></summary>
+      <ol>
+        <li><span class="qn">Q5a</span><span class="tag F">F</span><span>지진과 화산은 지도에서 어떻게 분포하고 있는가?</span></li>
+        <li><span class="qn">Q5b</span><span class="tag C">C</span><span>지진대와 화산대가 겹치는 지역에는 어떤 공통된 지리적 특징이 있을까?</span></li>
+        <li><span class="qn">Q5c</span><span class="tag C">C</span><span>우리가 추론한 선과 판의 경계는 얼마나 일치하는가? 이 일치는 무엇을 의미할까?</span></li>
+        <li><span class="qn">Q5d</span><span class="tag Z">Z</span><span>지금의 대륙 위치는 처음부터 이렇게 있었을까?</span></li>
+        <li><span class="qn">Q5e</span><span class="tag C">C</span><span>만약 대륙이 이동했다면, 지진과 화산이 반복되는 위치는 왜 생겼을까?</span></li>
+        <li><span class="qn">Q5f</span><span class="tag C">C</span><span>대륙이동설은 어떤 현상을 설명하려 했고, 어떤 점이 부족했을까?</span></li>
+        <li><span class="qn">Q5g</span><span class="tag C">C</span><span>과거의 지진이나 화산 활동의 기록 분포는 우리가 한 예측과 어떤 관계가 있을까?</span></li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="ks">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">중요한 내용과 핵심 기능</span><h2>알아야 할 것, 할 수 있어야 할 것</h2></div>
+    <div class="ks">
+      <div>
+        <h3>지식 — 학생들은 알 것이다</h3>
+        <div class="grp">지구계와 지권의 구조</div>
+        <ul><li><span class="code">K1</span>지구계의 구성 요소</li><li><span class="code">K2</span>지권의 층상 구조와 특징</li><li><span class="code">K3</span>지구 내부 구조 탐사 방법</li></ul>
+        <div class="grp">지각의 구성</div>
+        <ul><li><span class="code">K4</span>조암 광물의 주요 특성(색, 조흔색, 굳기, 염산 반응, 자성)</li><li><span class="code">K5</span>암석과 광물의 활용 방안 및 자원으로서 가치</li><li><span class="code">K6</span>암석(화성암, 퇴적암, 변성암)의 생성 과정</li></ul>
+        <div class="grp">지권의 변화</div>
+        <ul><li><span class="code">K7</span>암석의 순환 과정</li><li><span class="code">K8</span>풍화 과정</li><li><span class="code">K9</span>토양 생성 과정</li></ul>
+        <div class="grp">지권의 운동</div>
+        <ul><li><span class="code">K10</span>대륙이동설</li><li><span class="code">K11</span>지진대와 화산대</li><li><span class="code">K12</span>판의 경계</li></ul>
+      </div>
+      <div>
+        <h3>기능 — 학생들은 할 수 있을 것이다</h3>
+        <ul style="margin-top:38px">
+          <li><span class="code">S1</span>지구 관련 현상을 토대로 문제를 인식하고 가설 설정하기</li>
+          <li><span class="code">S2</span>관련 변인을 포함하여 탐구 설계하기</li>
+          <li><span class="code">S3</span>지구시스템 구성 요소들의 상호작용에 대한 자료를 조사·평가 및 변환하기</li>
+          <li><span class="code">S4</span>지구와 관련된 다양한 현상을 관찰하여 규칙성 추리하기<br><span class="note">탐구: 광물 특성 관찰하기 · 암석 관찰하여 분류하기</span></li>
+          <li><span class="code">S5</span>모형을 만들어 현상을 설명하거나 예측하기</li>
+          <li><span class="code">S6</span>과학적 증거에 기반하여 주장하기<br><span class="note">탐구: 빅데이터를 활용하여 화산대·지진대와 판의 경계의 관련성 탐구하기</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="assess">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">평가</span><h2>GEA 분석가 보고서</h2></div>
+    <div class="scenario">
+      <div class="yr">2090</div>
+      <p>지구는 과거 인간이 남긴 영향과 자연 변화가 겹치며 거대한 불안정 상태에 놓여 있다. 국제 기구 <b>GEA(Earth Analysis Assembly)</b>는 지질, 기후, 환경 데이터를 분석해 지구의 향후 100년을 예측할 신입 분석가를 모집하고 있다.</p>
+      <p>당신은 임시 분석가로 선발되었으며, 지구의 변화 원인을 파악하고 미래를 예측할 수 있는 능력을 보고서로 증명해야 한다. <b>선택 미션(A·B·C) 중 2개, 공통 미션 1개</b>를 작성하되, 보고서는 GEA 본부의 과학자 위원회에 보고되므로 주장에는 자료에 근거한 과학적 설명이 반드시 포함되어야 한다.</p>
+    </div>
+
+    <div class="missions">
+      <article class="mission">
+        <div class="top"><span class="badge">A</span><div><h3>지구계 상호작용 분석</h3><div class="kind">선택 1</div></div></div>
+        <p>OO 지역의 사례 자료를 바탕으로 대기·수권·지권·생물권 사이의 상호작용을 <b>원인 → 과정 → 결과</b> 흐름으로 설명하시오.</p>
+        <div class="data">강수량 감소 → 작물 생산 감소<br>토양 수분 감소 → 식생 감소<br>식생 감소 → 지표면 온도 상승, 모래폭풍 증가<br>이주 인구 증가 → 경작지 과이용</div>
+        <p class="cond">지구계 4요소 중 최소 3요소 명시, 제시된 자료 근거 2개 이상. 수업에서 학습한 지구 내부 구조 및 지권의 특성도 근거로 활용 가능.</p>
+        <p class="links">U1 · K1 · 9과09-01</p>
+      </article>
+      <article class="mission">
+        <div class="top"><span class="badge">B</span><div><h3>광물 성질 기반 자원 활용 보고</h3><div class="kind">선택 2</div></div></div>
+        <p>광물 A의 정보로 <b>성질 → 산업 활용</b>을 연결해 설명하고, 가장 적절한 활용 분야를 제안하시오. 자원으로서 가치 있는 이유를 성질과 대체 가능성의 관점에서 한 가지 이상 설명하시오.</p>
+        <div class="data">광물 A: 높은 경도 · 전기 절연성 우수 · 높은 용융점 · 미량 희귀 원소 포함</div>
+        <p class="cond">성질 2가지 이상과 활용의 인과 연결 필수, 자료에 근거한 과학적 설명 포함.</p>
+        <p class="links">U3 · K4 · K5 · 9과09-02</p>
+      </article>
+      <article class="mission">
+        <div class="top"><span class="badge">C</span><div><h3>지진·화산 분포 예측 보고</h3><div class="kind">선택 3</div></div></div>
+        <p>최근 10년간의 지진·화산 분포 지도를 분석하여 향후 100년 동안의 위험 지역을 예측하고, 그 근거를 과학적으로 설명하시오.</p>
+        <p class="cond">자료 속 패턴 언급 필수. “판의 경계 부근에서 반복적으로 발생한다”를 넘는 분석 필요(특정 지역 이름, 활동 패턴, 분포 경향).</p>
+        <p class="links">U5 · K11 · 9과09-05</p>
+      </article>
+      <article class="mission">
+        <div class="top"><span class="badge">D</span><div><h3>일반화 문장 작성</h3><div class="kind">공통 필수</div></div></div>
+        <p>작성한 미션 중 하나의 핵심 과학 개념을 다른 사례에도 적용 가능한 수준의 <b>일반화된 한 문장</b>으로 서술하시오.</p>
+        <p class="cond">단순 현상 요약이 아닌 과학적 원리 수준이어야 한다.</p>
+      </article>
+    </div>
+
+    <h3 class="sub">채점 기준(루브릭)</h3>
+    <p class="note">자료로 생각하기 8점 + 설명하고 주장하기 8점, 선택한 미션별로 채점</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>평가 요소</th><th>미션</th><th>4점</th><th>3점</th><th>2점</th><th>1점</th></tr></thead>
+        <tbody>
+          <tr><th rowspan="3">자료로<br>생각하기</th><td>A</td><td>대기·수권·지권·생물권 중 3요소 이상의 변화를 원인→과정→결과의 인과 흐름으로 해석, 자료 2개 이상 활용</td><td>관계를 설명하나 인과 흐름이 부분적으로 끊김</td><td>자료를 단순 나열</td><td>자료를 거의 활용하지 않음</td></tr>
+          <tr><td>B</td><td>성질 간 의미 있는 관계를 도출하고 각 성질이 활용·가치 판단에 어떻게 기여하는지 해석</td><td>성질 간 관계 해석이나 인과 연결의 정밀성 부족</td><td>성질과 활용·가치가 부분적으로만 연결</td><td>성질을 나열하거나 부정확하게 해석</td></tr>
+          <tr><td>C</td><td>공간적 패턴과 분포 경향을 해석하고 특정 지역(환태평양 조산대, 해구 인접 지역 등)을 근거로 합리적 예측</td><td>위험 지역을 예측하나 지역 특정성이 부족</td><td>“많다/적다” 수준의 진술</td><td>자료와 무관한 예측</td></tr>
+          <tr><th rowspan="3">설명하고<br>주장하기</th><td>A</td><td>과학 개념과 모형, 지구 내부 구조·지권 특성을 활용해 일관된 과학적 설명</td><td>개념·자료와 설명 간 연결이 불명확</td><td>개인적 추론 수준</td><td>근거 있는 주장 없음</td></tr>
+          <tr><td>B</td><td>성질이 특정 활용에 왜 적합한지 논리적으로 연결하고, 대체 가능성·희소성 관점에서 자원 가치를 판단</td><td>개념·자료와 주장 간 연결이 불명확</td><td>개인적 의견 수준</td><td>근거 기반 제안·주장 없음</td></tr>
+          <tr><td>C</td><td>판의 경계 유형(수렴·발산·보존)과 지진·화산 활동의 관계로 위험성을 명확한 과학적 주장으로 제시</td><td>판 구조 개념을 활용하나 예측 논리가 정교하지 않음</td><td>판 구조와의 연결이 약함</td><td>과학 개념에 근거한 설명 없음</td></tr>
+          <tr><th>핵심 문장</th><td>D</td><td colspan="2">—</td><td>선택한 미션의 개념과 정합 · 원리 수준으로 일반화</td><td>개념 불일치 · 현상 수준 요약</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">진단 평가</h3>
+    <p class="note">단원을 시작하기 전, 일반화(U1–U5)별 사전 인식을 확인합니다.</p>
+    <ol class="diag">
+      <li><span class="n">1</span><span>지구가 ‘변화하고 있다’고 말할 때 떠오르는 현상이나 예를 3가지 이상 써 보시오.</span><span class="u">U1</span></li>
+      <li><span class="n">2</span><span>폭우 증가 · 토양 유실 · 식생 감소 · 하천 탁도 증가 · 생물 다양성 감소 중 서로 영향을 주고받는 것끼리 연결하고 이유를 한 문장으로 쓰시오.</span><span class="u">U1 지구계 인식</span></li>
+      <li><span class="n">3</span><span>“이 돌은 예쁘다 / 회색이다 / 단단해 보인다 / 긁어도 흠집이 거의 나지 않는다” 중 과학적 관찰에 가장 가까운 것과 그 이유는?</span><span class="u">U2 관찰·분류</span></li>
+      <li><span class="n">4</span><span>과학에서 분류는 왜 필요한가? 예를 들어 설명하시오.</span><span class="u">U2</span></li>
+      <li><span class="n">5</span><span>높은 경도 · 전기 절연성 · 높은 용융점을 전기 절연체 · 절삭 공구 · 고온로 내부와 연결하고 이유를 한 가지 쓰시오.</span><span class="u">U3 성질–활용</span></li>
+      <li><span class="n">6</span><span>암석은 시간이 지나도 항상 같은 모습으로 남아 있을까? 이유를 설명하시오.</span><span class="u">U4 변화·순환</span></li>
+      <li><span class="n">7</span><span>암반 · 모래 · 흙 · 식물 자라는 땅을 변화의 관점에서 두 묶음으로 나누고 기준을 쓰시오.</span><span class="u">U4</span></li>
+      <li><span class="n">8</span><span>전 세계 지진 발생 지점의 점 지도에서 알 수 있는 점을 두 가지 이상 쓰시오.</span><span class="u">U5 패턴·예측</span></li>
+      <li><span class="n">9</span><span>이 지도가 무작위가 아니라면 그 이유는 무엇일지 가설을 한 가지 써 보시오.</span><span class="u">U5</span></li>
+      <li><span class="n">10</span><span>이번 단원에서 가장 궁금한 것은? 지구는 왜 계속 변하는가 / 암석과 광물은 왜 다르게 쓰이는가 / 땅은 어떻게 흙이 되는가 / 지진과 화산은 왜 그곳에 많은가</span><span class="u">학습 태도</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="lessons">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">학습 경험</span><h2>18차시 탐구 흐름</h2></div>
+    <div class="lessons">
+
+      <div class="phase">
+        <aside><span class="range">1–4차시</span><span class="ref">U1 · K1–K3 · S1 · S3</span><span class="ref">지구계와 지권의 구조</span></aside>
+        <div>
+          <div class="lesson"><div class="no">1<small>차시</small></div><div><span class="stage">관계맺기</span><span class="stage">집중하기</span><h4>시뮬레이션: GEA 분석가 선발</h4><p>화산 분포 점 지도, 대기 평균 기온 변화 그래프, 화산재 퇴적·토양 황폐화·식생 변화 사진으로 문제를 인식한다.</p><ul><li>이 변화들은 하나의 원인으로 설명 가능할까?</li><li>어떤 정보가 아직 부족한가? 무엇을 먼저 분석해야 할까?</li></ul></div></div>
+          <div class="lesson"><div class="no">2<small>차시</small></div><div><span class="stage">조사하기</span><span class="stage">조직하기</span><h4>교과서·검색으로 지구계와 층상 구조 조사</h4><p>Q1a–Q1c. GEA 분석 보고서 틀(원인: 내부 구조 특징 → 과정: 이동·작용 → 결과: 지표 변화 가능성) 제공.</p></div></div>
+          <div class="lesson"><div class="no">3<small>차시</small></div><div><span class="stage">일반화</span><span class="stage">전이하기</span><h4>추가 자료로 분석 보고서 작성</h4><p>맨틀 대류 개념도, 화산 분출 전후 대기 성분 그래프, 화산재가 햇빛을 차단하는 사진. Q1d. 모든 설명을 가능하게 하는 과학적 문장 하나를 만들고, 앞으로 100년의 변화 하나를 예측한다.</p></div></div>
+          <div class="lesson"><div class="no">4<small>차시</small></div><div><span class="stage">성찰하기</span><h4>GEA 분석가 자기 검증 보고서</h4><p>내용 요소, 자료 활용, 개념 정확성, 핵심 문장 정합성, 전이 가능성으로 자기평가.</p></div></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <aside><span class="range">5–10차시</span><span class="ref">U2 · U3 · K4–K6</span><span class="ref">지각의 구성</span></aside>
+        <div>
+          <div class="lesson"><div class="no">5<small>차시</small></div><div><span class="stage">관계맺기</span><span class="stage">조사하기</span><h4>광물 관찰과 재분류</h4><p>색, 조흔색, 굳기, 염산 반응, 자성을 자유롭게 기록한 뒤 분류 기준을 함께 설계해 재분류한다. Q2a–Q2d.</p></div></div>
+          <div class="lesson"><div class="no">6<small>차시</small></div><div><span class="stage">일반화</span><h4>토의와 일반화 문장 만들기</h4><p>Q2e, Q2f(선택). 분류와 관찰은 왜 시스템 이해에 필요한가?</p></div></div>
+          <div class="lesson"><div class="no">7<small>차시</small></div><div><span class="stage">관계맺기</span><h4>산업 사례 카드</h4><p>광물 이름은 숨긴 채 반도체 절연체, 고온 용광로 내벽, 절삭 공구 등 활용 상황에서 필요한 성질을 역추론한다. Q3a, Q3b.</p></div></div>
+          <div class="lesson"><div class="no">8<small>차시</small></div><div><span class="stage">집중하기</span><span class="stage">조사하기</span><h4>같은 광물, 다른 암석</h4><p>같은 광물이 포함된 암석 3종을 비교한다. Q3c–Q3e. 이후 화성암·퇴적암·변성암 이름 공개.</p></div></div>
+          <div class="lesson"><div class="no">9<small>차시</small></div><div><span class="stage">전이하기</span><span class="stage">일반화</span><h4>미니 총괄 리허설</h4><p>광물 A의 성질 자료로 가장 적절한 활용을 제안한다. Q3f–Q3h. “형성 과정에서 달라진 것은 무엇이고, 그것이 구조의 어떤 차이를 만들었으며, 그 구조가 어떤 성질을 결정해 어떤 활용이 가능해졌는가?”</p></div></div>
+          <div class="lesson"><div class="no">10<small>차시</small></div><div><span class="stage">성찰하기</span><h4>과학자처럼 말하기</h4><p>루브릭 기반 동료 평가: 형성 과정 언급 여부, 구조–성질 연결의 명확성, 활용의 필연성(대체 가능성 포함).</p></div></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <aside><span class="range">11–14차시</span><span class="ref">U4 · K7–K9</span><span class="ref">지권의 변화</span></aside>
+        <div>
+          <div class="lesson"><div class="no">11<small>차시</small></div><div><span class="stage">관계맺기</span><span class="stage">집중하기</span><h4>노출된 암반과 식물이 자라는 지표</h4><p>두 장소의 기능을 비교하고, 온도 변화·물 침투·식물 뿌리·얼음 팽창으로 암석이 잘게 되는 장면을 관찰한다. Q4a.</p></div></div>
+          <div class="lesson"><div class="no">12<small>차시</small></div><div><span class="stage">조사하기</span><span class="stage">조직하기</span><h4>조건 카드 × 암석 상태 카드</h4><p>열·압력·물·시간 조건에 따라 암석이 변함을 인식한다. 암반/모래/토양 비교 카드로 가능한 일과 불가능한 일 체크. Q4b, Q4c.</p></div></div>
+          <div class="lesson"><div class="no">13<small>차시</small></div><div><span class="stage">일반화</span><h4>구조가 바뀌면 기능이 바뀐다</h4><p>같은 지역의 전·후 사진으로 표면 거칠기, 층 형성, 물길, 빈 공간을 비교한다. 토양은 저장·이동·생명 지지, 암반은 지지·안정성. Q4e.</p></div></div>
+          <div class="lesson"><div class="no">14<small>차시</small></div><div><span class="stage">일반화</span><span class="stage">성찰하기</span><h4>요소 카드로 시스템 사고</h4><p>토양 → 식물 → 생물 → 다시 토양/암석으로 돌아오는 화살표를 연결하고, 이 반복을 암석의 순환으로 이름 붙인다. Q4f, Q4g.</p></div></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <aside><span class="range">15–18차시</span><span class="ref">U5 · K10–K12</span><span class="ref">지권의 운동</span></aside>
+        <div>
+          <div class="lesson"><div class="no">15<small>차시</small></div><div><span class="stage">관계맺기</span><span class="stage">조사하기</span><h4>지도를 겹쳐 패턴 찾기</h4><p>최근 50년 지진 분포 지도와 화산 분포 지도를 다른 색으로 표시하고 트레이싱지로 겹친다. 판의 경계 지도를 공개해 학생이 그은 선과 비교한다. Q5a–Q5c.</p></div></div>
+          <div class="lesson"><div class="no">16<small>차시</small></div><div><span class="stage">조직하기</span><span class="stage">전이하기</span><h4>대륙이동설과 예측</h4><p>판게아 복원도, 해안선 맞물림, 동일 화석 분포 지도. Q5d–Q5f. 판 경계 지도만 보고 위험 지역 1곳을 선택해 근거를 댄다(Q5g). 일반화 문장 완성.</p></div></div>
+          <div class="lesson"><div class="no">17<small>차시</small></div><div><span class="stage">성찰하기</span><h4>설명할 수 있는 것과 아직 어려운 것</h4><p>종합 설명 분류판(현상 카드 + 설명 카드)과 자기 점검 체크리스트.</p></div></div>
+          <div class="lesson"><div class="no">18<small>차시</small></div><div><h4>총괄평가: GEA 분석가 보고서</h4></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">교사를 위한 노트</span><h2>수업 준비</h2></div>
+    <div class="cols">
+      <div>
+        <h3>선수 학습</h3>
+        <ul>
+          <li>초3~4 ‘땅의 변화’: 화성암(현무암, 화강암). 지진 발생 원인은 다루지 않음.</li>
+          <li>초5~6 ‘지층과 화석’: 퇴적암(이암, 사암, 역암)을 알갱이 크기로 분류. 지층의 생성 원리는 다루지 않음.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>지도 유의점</h3>
+        <ol>
+          <li>화성암은 현무암·유문암·화강암·반려암, 퇴적암은 이암·사암·역암·석회암, 변성암은 편암·편마암·대리암·규암만 다룸(표준 샘플로 관찰).</li>
+          <li>광물과 암석 활용 예를 조사하고, 유한한 자원으로서의 가치를 토의.</li>
+          <li>빅데이터·증강 현실로 지진대·화산대 분포를 판의 경계와 관련지어 추론.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>자료와 성찰</h3>
+        <ul>
+          <li><a href="https://ugc.berkeley.edu/background-content/earths-internal-heat/" target="_blank" rel="noopener">Earth's Internal Heat — UC Berkeley Understanding Global Change</a></li>
+          <li>교육과정 기반 공통 평가 항목 만들어 역량 키우기</li>
+          <li>수업 계획서 제시하기</li>
+          <li>루브릭 기반 자기 평가 및 동료 평가 생활화</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">단원 설계 김아름 · Planning template developed by Erickson &amp; Lanning © 2022 · Translated by Jina Park</div>
+</footer>
+
+</body>
+</html>
