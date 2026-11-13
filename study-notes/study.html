@@ -1,0 +1,461 @@
+<title>동물과 에너지 따라 쓰기 노트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gowun+Batang:wght@400;700&display=swap">
+<style>
+/* 종이 학습지: A4 세로 한 장 = 한 기관계. 위에서 아래로 ① 정리 → ② 따라 쓰기 → ③ 따라 그리기 → ④ 혼자 써 보기 */
+:root{
+  --paper:#FFFFFF; --desk:#F3EFE6; --ink:#2B2140; --sub:#6E6488;
+  --trace:#C9C2D8; --rule:#DCD6E6; --mark:#FFE58A;
+  --dig:#FFB870; --cir:#FF6B7D; --res:#7CC4F5; --exc:#F2C94C; --cell:#FF9DB8;
+  --red:#E5304A; --blue:#3D5BE0;
+  --f-display:"Jua","Gowun Dodum",system-ui,sans-serif;
+  --f-body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-trace:"Gowun Batang","Batang",serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;word-break:keep-all;overflow-wrap:break-word;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px}
+.sheet{background:var(--paper);max-width:794px;margin:0 auto 24px;padding:34px 40px 30px;border:1px solid #E3DCCD;box-shadow:0 2px 0 #E3DCCD;position:relative}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;text-wrap:balance;line-height:1.25}
+.head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
+.head .tag{flex:none;width:52px;height:52px;border:2.5px solid var(--ink);border-radius:14px;display:grid;place-items:center;font-family:var(--f-display);font-size:22px;background:var(--c)}
+.head h1{font-size:28px}
+.head .who{margin-left:auto;font-size:13px;color:var(--sub);white-space:nowrap}
+.head .who span{display:inline-block;min-width:44px;border-bottom:1.5px solid var(--ink);margin:0 4px}
+.goal{font-size:13.5px;color:var(--sub);margin:-6px 0 12px}
+h2{font-size:18px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:16px 0 8px}
+h2 i{font-style:normal;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:13px;font-family:var(--f-body)}
+h2 small{font-family:var(--f-body);font-size:12.5px;color:var(--sub)}
+b{font-weight:700;background:linear-gradient(transparent 60%,var(--mark) 60%)}
+.box{border:2px solid var(--ink);border-radius:12px;padding:10px 14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid2>*{min-width:0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.45}
+th,td{border:1.5px solid var(--ink);padding:5px 7px;text-align:center;vertical-align:middle}
+th{background:#F6F2FF;font-weight:400;font-family:var(--f-display)}
+td.l{text-align:left}
+.tw{overflow-x:auto;max-width:100%}
+/* 따라 쓰기: 연한 글씨 + 밑줄 칸 */
+.trace{display:grid;gap:2px}
+.trace p{margin:0;font-family:var(--f-trace);font-size:19px;line-height:2.05;color:var(--trace);border-bottom:1.5px solid var(--rule);letter-spacing:.02em}
+.trace p.blank{color:transparent;user-select:none}
+.trace p::before{content:"✎ ";color:var(--rule);font-size:14px}
+/* 따라 그리기: 같은 그림을 점선으로 */
+.draw{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.draw>figure{margin:0;min-width:0}
+.draw figcaption{font-size:12px;color:var(--sub);text-align:center;margin-top:2px}
+.fig svg{width:100%;height:auto;display:block}
+.fig.trc svg *{fill:none!important;stroke:var(--trace)!important;stroke-dasharray:5 4}
+.fig.trc svg text{display:none}
+.fig.trc svg .to{stroke:var(--trace)!important;stroke-dasharray:none}
+.fig.trc svg .ti{stroke:var(--paper)!important;stroke-dasharray:none}
+.fig.trc svg .keep{stroke:var(--ink)!important;stroke-dasharray:none;stroke-width:1.5}
+.fig.trc svg .lab{display:inline;fill:var(--ink)!important;stroke:none!important;font-family:var(--f-body)}
+.fig .frame{border:1.5px dashed var(--rule);border-radius:10px;padding:6px}
+.write{display:grid;gap:10px;margin-top:4px}
+.write .ln{border-bottom:1.5px solid var(--rule);height:30px}
+.q{font-size:14px;margin:6px 0 2px}
+.foot{margin-top:14px;font-size:11.5px;color:var(--sub);display:flex;justify-content:space-between;border-top:1px solid var(--rule);padding-top:6px}
+.cover h1{font-size:38px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--f-display);font-size:16px}
+.flow span{border:2px solid var(--ink);border-radius:999px;padding:1px 12px;background:var(--paper)}
+.flow em{font-style:normal;color:var(--sub)}
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.how div{border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-size:13px;min-width:0}
+.how div strong{display:block;font-family:var(--f-display);font-weight:400;font-size:16px}
+@media (max-width:640px){
+  .sheet{padding:20px 16px}
+  .grid2,.draw{grid-template-columns:1fr}
+  .how{grid-template-columns:1fr 1fr}
+  .head h1{font-size:22px}.cover h1{font-size:28px}
+  .head .who{display:none}
+  .trace p{font-size:16px}
+}
+@page{size:A4;margin:0}
+@media print{
+  body{background:#fff;padding:0}
+  .sheet{border:0;box-shadow:none;margin:0 auto;page-break-after:always;break-after:page;width:210mm;max-width:none;min-height:297mm;padding:12mm 14mm}
+  .sheet:last-child{page-break-after:auto;break-after:auto}
+  .cover .draw .frame svg{max-height:44mm;margin:0 auto}
+  .cover h2{margin:10px 0 6px}
+  .sheet{min-height:0}
+  .cover{height:297mm;overflow:hidden}
+  .cover .how{margin:6px 0}
+  h2.pb{break-before:page;page-break-before:always;padding-top:4mm}
+  .trace p{font-size:20px;line-height:2.2}
+}
+</style>
+
+<!-- ======================= 표지 + 세포호흡 ======================= -->
+<section class="sheet cover" style="--c:var(--cell)">
+  <div class="head"><div class="tag" style="--c:var(--cell)">0</div><div><h1>동물과 에너지 따라 쓰기 노트</h1></div>
+    <div class="who">2학년 <span></span>반 <span></span>번 이름 <span style="min-width:70px"></span></div></div>
+  <p class="goal">연성이의 기초 탐험(/basic)과 같은 순서예요. 사이트에서 공부한 뒤, 이 노트에 손으로 한 번 더 써 보세요.</p>
+  <div class="how">
+    <div><strong>① 핵심 정리</strong>형광펜 부분을 소리 내어 읽기</div>
+    <div><strong>② 따라 쓰기</strong>연한 글씨 위를 그대로 따라 쓰기</div>
+    <div><strong>③ 따라 그리기</strong>점선 그림을 따라 그리고 이름 쓰기</div>
+    <div><strong>④ 혼자 써 보기</strong>안 보고 빈 줄에 다시 쓰기</div>
+  </div>
+
+  <h2><i>①</i>세포호흡 <small>모든 기관계가 일하는 까닭</small></h2>
+  <div class="grid2">
+    <div class="box">
+      <p style="margin:0 0 6px"><b>세포호흡</b>: 세포에서 <b>영양소</b>와 <b>산소</b>를 이용해 <b>에너지</b>를 얻는 과정. 이때 <b>이산화 탄소</b>와 <b>물</b> 같은 노폐물이 생긴다.</p>
+      <p style="margin:0 0 6px">세포호흡은 폐가 아니라 <b>온몸의 모든 세포</b>에서 일어난다.</p>
+      <p style="margin:0">얻은 에너지: 체온 유지, 두뇌 활동, 근육 운동, 소리 내기, 생장</p>
+    </div>
+    <div class="tw"><table>
+      <tr><th>물질</th><th>몸 밖과 주고받는 기관계</th><th>세포까지 운반</th></tr>
+      <tr><td>영양소</td><td>소화계 (흡수)</td><td rowspan="4">순환계</td></tr>
+      <tr><td>산소</td><td>호흡계 (들어옴)</td></tr>
+      <tr><td>이산화 탄소</td><td>호흡계 (나감)</td></tr>
+      <tr><td>요소</td><td>배설계 (나감)</td></tr>
+    </table></div>
+  </div>
+
+  <h2><i>②</i>따라 쓰기</h2>
+  <div class="trace">
+    <p>포도당(영양소) + 산소 → 에너지 + 이산화 탄소 + 물</p>
+    <p>세포호흡은 온몸의 모든 세포에서 일어난다.</p>
+    <p>영양소는 소화계, 산소는 호흡계로 들어오고 순환계가 세포까지 운반한다.</p>
+    <p>이산화 탄소는 호흡계로, 요소는 배설계로 몸 밖에 나간다.</p>
+  </div>
+
+  <h2><i>③</i>따라 그리기 <small>세포를 둘러싼 네 기관계 · 화살표 방향을 정확히</small></h2>
+  <div class="draw">
+    <figure class="fig"><div class="frame" id="cellA"></div><figcaption>보고 그리기</figcaption></figure>
+    <figure class="fig trc"><div class="frame" id="cellB"></div><figcaption>점선 따라 그리고 빈칸에 기관계 이름 쓰기</figcaption></figure>
+  </div>
+
+  <h2><i>④</i>혼자 써 보기 <small>안 보고 세포호흡 식과 네 기관계의 역할 쓰기</small></h2>
+  <div class="write"><div class="ln"></div><div class="ln"></div></div>
+  <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>0 · 세포호흡</span></div>
+</section>
+
+<!-- ======================= 소화계 ======================= -->
+<section class="sheet">
+  <div class="head"><div class="tag" style="--c:var(--dig)">1</div><h1>소화계</h1><div class="who">이름 <span style="min-width:70px"></span></div></div>
+  <p class="goal">큰 영양소를 세포막을 통과할 수 있는 작은 분자로 분해(소화)하고, 작은창자에서 흡수한다.</p>
+
+  <h2><i>①</i>핵심 정리 <small>기관마다 무엇이 무엇을 분해할까?</small></h2>
+  <div class="tw"><table>
+    <tr><th style="width:15%">기관</th><th style="width:22%">소화액 · 효소</th><th>하는 일</th></tr>
+    <tr><td>입</td><td>침: <b>아밀레이스</b></td><td class="l">이로 잘게 부숨 · 녹말 → 엿당</td></tr>
+    <tr><td>식도</td><td>없음</td><td class="l">근육의 <b>꿈틀 운동</b>으로 위로 밀어 내림</td></tr>
+    <tr><td>위</td><td>위액: <b>펩신</b>, 염산</td><td class="l">단백질 분해 시작 · 염산은 펩신 작용을 돕고 세균을 없앰</td></tr>
+    <tr><td>간 · 쓸개</td><td>쓸개즙 (<b>효소 없음</b>)</td><td class="l">간에서 만들고 쓸개에 저장 → 작은창자로 · 지방을 작은 알갱이로 부숨</td></tr>
+    <tr><td>이자</td><td>이자액: <b>아밀레이스 · 트립신 · 라이페이스</b></td><td class="l">작은창자로 분비 · 녹말, 단백질, 지방을 모두 분해</td></tr>
+    <tr><td>작은창자</td><td>탄수화물·단백질 소화 효소</td><td class="l">소화가 끝남 · <b>융털</b>에서 흡수 (포도당·아미노산 → 모세혈관, 지방산·모노글리세리드 → 암죽관)</td></tr>
+    <tr><td>큰창자</td><td>효소 <b>없음</b></td><td class="l">물 흡수 · 찌꺼기는 항문으로</td></tr>
+  </table></div>
+  <div class="grid2" style="margin-top:10px">
+    <div class="tw"><table>
+      <tr><th>영양소</th><th>최종 산물</th></tr>
+      <tr><td>녹말</td><td><b>포도당</b></td></tr>
+      <tr><td>단백질</td><td><b>아미노산</b></td></tr>
+      <tr><td>지방</td><td><b>지방산 + 모노글리세리드</b></td></tr>
+    </table></div>
+    <div class="tw"><table>
+      <tr><th>검출 용액</th><th>영양소 → 색</th></tr>
+      <tr><td>아이오딘-아이오딘화 칼륨</td><td>녹말 → 청람색</td></tr>
+      <tr><td>베네딕트 (가열)</td><td>당 → 황적색</td></tr>
+      <tr><td>뷰렛</td><td>단백질 → 보라색</td></tr>
+      <tr><td>수단 Ⅲ</td><td>지방 → 선홍색</td></tr>
+    </table></div>
+  </div>
+
+  <h2><i>②</i>따라 쓰기</h2>
+  <div class="trace">
+    <p>침 속 아밀레이스는 녹말을 엿당으로 분해한다.</p>
+    <p>위액 속 펩신은 단백질을 분해하기 시작한다.</p>
+    <p>쓸개즙은 간에서 만들어 쓸개에 저장하며, 소화 효소가 없다.</p>
+    <p>이자액에는 아밀레이스, 트립신, 라이페이스가 모두 들어 있다.</p>
+    <p>작은창자의 융털은 표면적을 넓혀 영양소를 잘 흡수한다.</p>
+  </div>
+
+  <h2 class="pb"><i>③</i>따라 그리기 <small>소화관은 진하게, 간·쓸개·이자는 소화관 밖에!</small></h2>
+  <div class="draw">
+    <figure class="fig"><div class="frame" id="digA"></div><figcaption>보고 그리기</figcaption></figure>
+    <figure class="fig trc"><div class="frame" id="digB"></div><figcaption>점선 따라 그리고, 선 끝에 기관 이름 9개 쓰기</figcaption></figure>
+  </div>
+
+  <h2><i>④</i>혼자 써 보기 <small>녹말·단백질·지방이 어디서, 무엇에 의해, 무엇으로 분해되는지</small></h2>
+  <div class="write"><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>1 · 소화계</span></div>
+</section>
+
+<!-- ======================= 순환계 ======================= -->
+<section class="sheet">
+  <div class="head"><div class="tag" style="--c:var(--cir)">2</div><h1>순환계</h1><div class="who">이름 <span style="min-width:70px"></span></div></div>
+  <p class="goal">혈액 · 심장 · 혈관. 세포에 영양소와 산소를 주고, 이산화 탄소와 노폐물을 받아 온다.</p>
+
+  <h2><i>①</i>핵심 정리</h2>
+  <div class="grid2">
+    <div class="tw"><table>
+      <tr><th>혈액 성분</th><th>하는 일</th></tr>
+      <tr><td>혈장 (액체)</td><td class="l">영양소 · 이산화 탄소 · 노폐물 운반</td></tr>
+      <tr><td>적혈구</td><td class="l"><b>산소</b> 운반 · 가운데 오목한 원반, 핵 없음</td></tr>
+      <tr><td>백혈구</td><td class="l"><b>세균</b>을 잡아먹음 · 핵 있음</td></tr>
+      <tr><td>혈소판</td><td class="l">상처에서 <b>혈액 응고</b> · 가장 작음</td></tr>
+    </table></div>
+    <div class="tw"><table>
+      <tr><th>혈관</th><th>구조 → 기능</th></tr>
+      <tr><td>동맥</td><td class="l">벽이 <b>두껍고 탄력</b> → 높은 혈압을 견딤 (심실 → 온몸)</td></tr>
+      <tr><td>정맥</td><td class="l">벽이 얇고 <b>판막</b> → 거꾸로 흐름을 막음 (온몸 → 심방)</td></tr>
+      <tr><td>모세혈관</td><td class="l">벽이 <b>세포 한 겹</b>, 혈류가 가장 느림 → 물질 교환</td></tr>
+    </table></div>
+  </div>
+  <div class="box" style="margin-top:10px">
+    <p style="margin:0 0 4px">심방 = 혈액이 <b>들어오는</b> 방, 심실 = 혈액을 <b>내보내는</b> 방. <b>판막</b>은 혈액을 한 방향으로만 흐르게 한다. 벽이 가장 두꺼운 방은 <b>좌심실</b>.</p>
+    <div class="flow" style="margin:6px 0"><em>폐순환</em><span>우심실</span>→<span>폐동맥</span>→<span>폐</span>→<span>폐정맥</span>→<span>좌심방</span></div>
+    <div class="flow"><em>온몸 순환</em><span>좌심실</span>→<span>대동맥</span>→<span>온몸</span>→<span>대정맥</span>→<span>우심방</span></div>
+  </div>
+
+  <h2><i>②</i>따라 쓰기</h2>
+  <div class="trace">
+    <p>혈액은 동맥 → 모세혈관 → 정맥 순서로 흐른다.</p>
+    <p>폐순환: 우심실 → 폐동맥 → 폐 → 폐정맥 → 좌심방</p>
+    <p>온몸 순환: 좌심실 → 대동맥 → 온몸 → 대정맥 → 우심방</p>
+    <p>폐동맥에는 산소가 적은 피, 폐정맥에는 산소가 많은 피가 흐른다.</p>
+  </div>
+
+  <h2 class="pb"><i>③</i>따라 그리기 <small>산소 많은 피는 빨강, 적은 피는 파랑으로 색칠하기</small></h2>
+  <div class="draw">
+    <figure class="fig"><div class="frame" id="hrtA"></div><figcaption>그림의 왼쪽 = 몸의 오른쪽 · 흰 삼각형 = 판막</figcaption></figure>
+    <figure class="fig trc"><div class="frame" id="hrtB"></div><figcaption>점선 따라 그리고 방·혈관 이름 8개 쓰기</figcaption></figure>
+  </div>
+  <div class="draw" style="margin-top:8px">
+    <figure class="fig"><div class="frame" id="vesA"></div></figure>
+    <figure class="fig trc"><div class="frame" id="vesB"></div><figcaption>혈관 단면 따라 그리기</figcaption></figure>
+  </div>
+  <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>2 · 순환계</span></div>
+</section>
+
+<!-- ======================= 호흡계 ======================= -->
+<section class="sheet">
+  <div class="head"><div class="tag" style="--c:var(--res)">3</div><h1>호흡계</h1><div class="who">이름 <span style="min-width:70px"></span></div></div>
+  <p class="goal">공기 중의 산소를 받아들이고, 몸 안의 이산화 탄소를 내보낸다.</p>
+
+  <h2><i>①</i>핵심 정리</h2>
+  <div class="grid2">
+    <div class="box">
+      <div class="flow" style="margin-bottom:6px"><span>코</span>→<span>숨관</span>→<span>숨관가지</span>→<span>허파꽈리</span></div>
+      <p style="margin:0 0 4px">숨관: <b>연골 고리</b>가 있어 찌그러지지 않음</p>
+      <p style="margin:0 0 4px">허파꽈리: 수억 개 → <b>표면적</b>이 넓음, 벽이 세포 한 겹, <b>모세혈관</b>이 감쌈</p>
+      <p style="margin:0">기체는 농도가 <b>높은 쪽 → 낮은 쪽</b>으로 이동 (산소: 허파꽈리 → 모세혈관, 이산화 탄소: 모세혈관 → 허파꽈리)</p>
+    </div>
+    <div class="tw"><table>
+      <tr><th></th><th>들숨</th><th>날숨</th></tr>
+      <tr><td>갈비뼈</td><td>올라감</td><td>내려감</td></tr>
+      <tr><td>가로막</td><td>내려감</td><td>올라감</td></tr>
+      <tr><td>흉강 부피</td><td>커짐</td><td>작아짐</td></tr>
+      <tr><td>폐 안 압력</td><td>대기압보다 낮음</td><td>대기압보다 높음</td></tr>
+      <tr><td>공기</td><td>몸 밖 → 폐</td><td>폐 → 몸 밖</td></tr>
+    </table></div>
+  </div>
+  <p class="q">호흡 운동 모형: 고무막 = <b>가로막</b> · 고무풍선 = <b>폐</b> · 빨대 = <b>숨관·숨관가지</b> · 페트병 속 공간 = <b>흉강</b>. 폐에는 근육이 없다!</p>
+
+  <h2><i>②</i>따라 쓰기</h2>
+  <div class="trace">
+    <p>공기는 코 → 숨관 → 숨관가지 → 허파꽈리로 들어간다.</p>
+    <p>폐는 근육이 없어 갈비뼈와 가로막의 움직임으로 숨을 쉰다.</p>
+    <p>들숨: 갈비뼈 ↑, 가로막 ↓, 흉강 부피 ↑, 폐 안 압력 ↓</p>
+    <p>허파꽈리는 수가 많아 표면적이 넓고, 모세혈관이 감싸고 있다.</p>
+  </div>
+
+  <h2 class="pb"><i>③</i>따라 그리기</h2>
+  <div class="draw">
+    <figure class="fig"><div class="frame" id="resA"></div><figcaption>보고 그리기</figcaption></figure>
+    <figure class="fig trc"><div class="frame" id="resB"></div><figcaption>점선 따라 그리고 이름 6개 쓰기</figcaption></figure>
+  </div>
+  <div class="draw" style="margin-top:8px">
+    <figure class="fig"><div class="frame" id="alvA"></div></figure>
+    <figure class="fig trc"><div class="frame" id="alvB"></div><figcaption>허파꽈리와 모세혈관 · 기체 이동 화살표 그리기</figcaption></figure>
+  </div>
+  <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>3 · 호흡계</span></div>
+</section>
+
+<!-- ======================= 배설계 ======================= -->
+<section class="sheet">
+  <div class="head"><div class="tag" style="--c:var(--exc)">4</div><h1>배설계</h1><div class="who">이름 <span style="min-width:70px"></span></div></div>
+  <p class="goal">세포에서 생긴 노폐물을 혈액에서 걸러 오줌으로 내보낸다.</p>
+
+  <h2><i>①</i>핵심 정리</h2>
+  <div class="grid2">
+    <div class="box">
+      <p style="margin:0 0 4px">단백질 분해 → <b>암모니아</b> → (간) → <b>요소</b> → (콩팥) → 오줌</p>
+      <div class="flow" style="margin:6px 0"><span>콩팥</span>→<span>오줌관</span>→<span>방광</span>→<span>요도</span></div>
+      <p style="margin:0"><b>콩팥 단위</b> = 토리 + 보먼주머니 + 세뇨관 (콩팥 하나에 약 100만 개)</p>
+    </div>
+    <div class="tw"><table>
+      <tr><th>과정</th><th>방향</th><th>무엇이?</th></tr>
+      <tr><td>① 여과</td><td>토리 → 보먼주머니</td><td class="l">크기가 작은 물·포도당·아미노산·요소·무기염류 (혈구·단백질 X)</td></tr>
+      <tr><td>② 재흡수</td><td>세뇨관 → 모세혈관</td><td class="l">필요한 물질 (포도당·아미노산은 <b>전부</b>)</td></tr>
+      <tr><td>③ 분비</td><td>모세혈관 → 세뇨관</td><td class="l">남은 요소 등 노폐물</td></tr>
+    </table></div>
+  </div>
+  <p class="q">하루 혈액 약 1,500 L → 여과액 약 180 L → 오줌 약 1.5 L : 여과액의 약 <b>99%</b>가 재흡수된다.</p>
+
+  <h2><i>②</i>따라 쓰기</h2>
+  <div class="trace">
+    <p>간은 해로운 암모니아를 요소로 바꾼다.</p>
+    <p>콩팥 단위는 토리, 보먼주머니, 세뇨관으로 이루어진다.</p>
+    <p>오줌은 여과 → 재흡수 → 분비를 거쳐 만들어진다.</p>
+    <p>포도당은 여과되지만 세뇨관에서 모두 재흡수되어 오줌에 없다.</p>
+  </div>
+
+  <h2 class="pb"><i>③</i>따라 그리기</h2>
+  <div class="draw">
+    <figure class="fig"><div class="frame" id="urA"></div><figcaption>보고 그리기</figcaption></figure>
+    <figure class="fig trc"><div class="frame" id="urB"></div><figcaption>점선 따라 그리고 이름 쓰기</figcaption></figure>
+  </div>
+  <div class="draw" style="margin-top:8px">
+    <figure class="fig"><div class="frame" id="nepA"></div></figure>
+    <figure class="fig trc"><div class="frame" id="nepB"></div><figcaption>콩팥 단위 따라 그리고 ①②③ 화살표 쓰기</figcaption></figure>
+  </div>
+  <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>4 · 배설계</span></div>
+</section>
+
+<!-- ======================= 최종 정리 ======================= -->
+<section class="sheet">
+  <div class="head"><div class="tag" style="--c:#FFD04D">★</div><h1>한 장으로 다시 쓰기</h1><div class="who">이름 <span style="min-width:70px"></span></div></div>
+  <p class="goal">교과서와 사이트를 덮고 써 보세요. 막히는 칸만 앞장을 보고 채워요.</p>
+
+  <h2><i>①</i>물질의 여행 <small>빈칸에 기관 이름 쓰기</small></h2>
+  <div class="tw"><table>
+    <tr><th style="width:18%">산소</th><td class="l">코 → (　　　　) → 숨관가지 → (　　　　　) → 폐정맥 → 심장 → (　　　　) → 모세혈관 → 세포</td></tr>
+    <tr><th>포도당</th><td class="l">입 → 식도 → (　　) → (　　　　　) 융털 → 혈액 → 심장 → 대동맥 → 모세혈관 → 세포</td></tr>
+    <tr><th>이산화 탄소</th><td class="l">세포 → 모세혈관 → (　　　　) → 심장 → (　　　　) → 허파꽈리 → 숨관 → 코</td></tr>
+    <tr><th>요소</th><td class="l">(　　) → 혈액 → (　　　) → 오줌관 → (　　　) → 요도 → 몸 밖</td></tr>
+  </table></div>
+
+  <h2><i>②</i>구조가 기능을 결정한다 <small>세 구조의 공통점</small></h2>
+  <div class="tw"><table>
+    <tr><th>구조</th><th>있는 곳</th><th>표면적을 넓히는 생김새</th><th>붙어 있는 혈관</th></tr>
+    <tr><td>융털</td><td></td><td></td><td></td></tr>
+    <tr><td>허파꽈리</td><td></td><td></td><td></td></tr>
+    <tr><td>콩팥 단위</td><td></td><td></td><td></td></tr>
+  </table></div>
+
+  <h2><i>③</i>따라 쓰기</h2>
+  <div class="trace">
+    <p>네 기관계 중 하나라도 멈추면 세포호흡이 정상적으로 일어나지 못한다.</p>
+    <p>달리면 세포호흡이 활발해져 호흡 수와 심장 박동 수가 함께 늘어난다.</p>
+  </div>
+
+  <h2><i>④</i>혼자 써 보기 <small>연성이가 달리는 동안 네 기관계가 어떻게 함께 일하는지 (세포호흡 · 산소 · 이산화 탄소 · 영양소 · 요소를 넣어)</small></h2>
+  <div class="write"><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>★ · 통합</span></div>
+</section>
+
+<script>
+/* 그림은 한 번 그려서 '보고 그리기'(색)와 '따라 그리기'(점선)에 같이 씀 */
+const INK='#2B2140', R='#E5304A', B='#3D5BE0';
+const t=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.s||16}" fill="${o.f||INK}" text-anchor="${o.a||'middle'}" font-family="Jua, Gowun Dodum, sans-serif">${s}</text>`;
+/* 이름표: 선 + 글자. 따라 그리기에서는 선만 남고 글자 자리에 빈 밑줄 */
+const L=(x1,y1,x2,y2,s,a,fs=15)=>{const w=fs*4.7;return `<line class="keep" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#6e6488" stroke-width="${fs/10}"/><circle class="keep" cx="${x1}" cy="${y1}" r="${fs/5}" fill="#6e6488"/>${t(x2+(a==='end'?-4:a==='start'?4:0),y2+fs/3,s,{s:fs,a:a||'start'})}<line class="keep blankline" x1="${a==='end'?x2-w:x2}" y1="${y2+fs/2}" x2="${a==='end'?x2:x2+w}" y2="${y2+fs/2}" stroke="transparent" stroke-width="${fs/10}"/>`};
+const svg=(vb,b)=>`<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg">${b}</svg>`;
+const tube=(d,w,c)=>`<path class="to" d="${d}" fill="none" stroke="${INK}" stroke-width="${w+5}" stroke-linecap="round" stroke-linejoin="round"/><path class="ti" d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+/* 이름표(선 없이): 따라 그리기에서는 글자 대신 빈 밑줄 */
+const N=(x,y,s,a='middle')=>`${t(x,y,s,{s:15,a})}<line class="keep blankline" x1="${a==='end'?x-64:a==='start'?x:x-32}" y1="${y+4}" x2="${a==='end'?x:a==='start'?x+64:x+32}" y2="${y+4}" stroke="transparent" stroke-width="1"/>`;
+
+const FIG={
+cell:()=>svg('0 0 360 260',`
+ <circle cx="180" cy="130" r="46" fill="#FFE3EC" stroke="${INK}" stroke-width="3"/><circle cx="196" cy="114" r="12" fill="#C9B4FF" stroke="${INK}" stroke-width="2"/>${t(180,150,'세포',{s:17})}
+ <rect x="130" y="8" width="100" height="40" rx="12" fill="#FFE4C8" stroke="${INK}" stroke-width="2.5"/>${t(180,34,'소화계')}
+ <rect x="130" y="212" width="100" height="40" rx="12" fill="#FFF1C2" stroke="${INK}" stroke-width="2.5"/>${t(180,238,'배설계')}
+ <rect x="6" y="110" width="92" height="40" rx="12" fill="#DDF0FF" stroke="${INK}" stroke-width="2.5"/>${t(52,136,'호흡계')}
+ <rect x="262" y="110" width="92" height="40" rx="12" fill="#FFE0E4" stroke="${INK}" stroke-width="2.5"/>${t(308,136,'순환계')}
+ <circle cx="180" cy="130" r="74" fill="none" stroke="${R}" stroke-width="3" stroke-dasharray="7 6"/>
+ <path d="M180 50 L180 80" stroke="${INK}" stroke-width="2.5" marker-end="url(#ar)"/>${t(206,70,'영양소',{s:12,a:'start'})}
+ <path d="M100 122 L132 122" stroke="${INK}" stroke-width="2.5" marker-end="url(#ar)"/>${t(116,112,'산소',{s:12})}
+ <path d="M132 140 L100 140" stroke="${INK}" stroke-width="2.5" marker-end="url(#ar)"/>${t(116,160,'이산화 탄소',{s:12})}
+ <path d="M180 178 L180 210" stroke="${INK}" stroke-width="2.5" marker-end="url(#ar)"/>${t(206,198,'요소',{s:12,a:'start'})}
+ ${t(300,100,'모든 물질을 운반',{s:11,f:'#6e6488'})}
+ <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="${INK}"/></marker></defs>`),
+
+/* 소화계: 연성이 그림 사이트(yeonsung-img)의 digest 그림을 바탕으로, 이름표는 교과서 용어로 */
+dig:()=>svg('0 0 600 740',`
+ <circle cx="300" cy="100" r="68" fill="#FFF1E4" stroke="#E6CDB8" stroke-width="3"/><rect x="150" y="185" width="300" height="545" rx="95" fill="#FFF1E4" stroke="#E6CDB8" stroke-width="3"/><rect x="266" y="150" width="68" height="50" fill="#FFF1E4"/>
+ <path d="M278 122 Q300 142 322 122 Q300 130 278 122 Z" fill="#FF4F79" stroke="${INK}" stroke-width="3"/>
+ ${tube('M300 140 L300 205 Q302 260 338 300',16,'#FF9E8F')}
+ ${tube('M300 690 L300 655 Q300 640 320 640 Q395 640 395 590 L395 470 Q395 452 377 452 L225 452 Q207 452 207 470 L207 600',30,'#F2A869')}
+ ${tube('M352 405 Q330 440 270 470 Q245 485 262 500 Q300 515 345 495 Q372 488 360 520 Q330 540 268 528 Q240 528 250 556 Q275 580 345 566 Q372 565 358 596 Q330 615 255 600',16,'#FFB3A1')}
+ <path d="M262 418 Q300 398 372 408 Q392 412 386 424 Q378 434 340 432 Q300 434 276 440 Q256 436 262 418 Z" fill="#FFD04D" stroke="${INK}" stroke-width="3"/>
+ <path d="M168 300 Q176 252 260 252 Q320 252 340 268 Q332 300 292 322 Q236 350 190 340 Q166 330 168 300 Z" fill="#D9574B" stroke="${INK}" stroke-width="3"/>
+ <path d="M248 330 Q262 322 270 338 Q274 362 258 368 Q240 366 242 348 Q242 336 248 330 Z" fill="#5CC26F" stroke="${INK}" stroke-width="3"/>
+ <path d="M330 296 Q372 268 410 300 Q432 330 420 372 Q404 410 362 412 Q336 410 334 392 Q356 386 372 364 Q384 336 352 324 Q336 318 330 296 Z" fill="#FF8FA8" stroke="${INK}" stroke-width="3"/>
+ <path d="M288 690 L312 690 L310 712 L290 712 Z" fill="#B8805A" stroke="${INK}" stroke-width="3"/>
+ ${L(300,128,110,122,'입','end',24)}${L(301,215,470,207,'식도','start',24)}${L(205,300,110,282,'간','end',24)}${L(252,352,110,364,'쓸개','end',24)}
+ ${L(405,335,470,312,'위','start',24)}${L(378,418,470,410,'이자','start',24)}${L(330,560,470,532,'작은창자','start',24)}${L(207,540,110,532,'큰창자','end',24)}${L(300,708,470,697,'항문','start',24)}`),
+
+heart:()=>svg('0 0 420 340',`
+ ${tube('M130 4 L130 100',18,B)}${tube('M185 210 L185 38',18,B)}${tube('M255 210 L255 30',22,R)}${tube('M412 125 L322 125',16,R)}
+ <path d="M90 110 Q90 80 130 80 L290 80 Q330 80 330 110 L330 210 Q330 310 210 330 Q90 310 90 210 Z" fill="#FFE3EC" stroke="${INK}" stroke-width="3"/>
+ <line x1="210" y1="82" x2="210" y2="326" stroke="${INK}" stroke-width="4"/>
+ <rect x="100" y="90" width="104" height="62" rx="12" fill="#8FA3FF" stroke="${INK}" stroke-width="2"/>
+ <rect x="216" y="90" width="104" height="62" rx="12" fill="#FF8A97" stroke="${INK}" stroke-width="2"/>
+ <path d="M102 168 L204 168 L204 300 Q140 296 102 230 Z" fill="${B}" stroke="${INK}" stroke-width="2"/>
+ <path d="M216 168 L318 168 L318 230 Q282 300 216 314 Z" fill="${R}" stroke="${INK}" stroke-width="2"/>
+ <path d="M140 156 L152 168 L164 156" fill="#fff" stroke="${INK}" stroke-width="2"/><path d="M256 156 L268 168 L280 156" fill="#fff" stroke="${INK}" stroke-width="2"/>
+ ${N(152,128,'우심방')}${N(268,128,'좌심방')}${N(152,236,'우심실')}${N(268,236,'좌심실')}
+ ${N(116,44,'대정맥','end')}${N(185,24,'폐동맥')}${N(270,22,'대동맥','start')}${N(372,110,'폐정맥')}`),
+
+ves:()=>svg('0 0 360 150',`
+ <circle cx="60" cy="58" r="44" fill="${R}" stroke="${INK}" stroke-width="3"/><circle cx="60" cy="58" r="17" fill="#FFD3D7" stroke="${INK}" stroke-width="2.4"/>${t(60,124,'동맥',{s:17})}${t(60,142,'두껍고 탄력',{s:12,f:'#6e6488'})}
+ <circle cx="180" cy="58" r="44" fill="${B}" stroke="${INK}" stroke-width="3"/><circle cx="180" cy="58" r="36" fill="#D6DEFF" stroke="${INK}" stroke-width="2.4"/><path d="M152 40 Q170 58 174 80 M208 40 Q190 58 186 80" stroke="${INK}" stroke-width="3" fill="none"/>${t(180,124,'정맥',{s:17})}${t(180,142,'얇고 판막',{s:12,f:'#6e6488'})}
+ ${Array.from({length:10},(_,i)=>{const a=i/10*Math.PI*2;return `<circle cx="${(300+22*Math.cos(a)).toFixed(1)}" cy="${(58+22*Math.sin(a)).toFixed(1)}" r="7.5" fill="#FFE3EC" stroke="${INK}" stroke-width="2"/>`}).join('')}<ellipse cx="300" cy="58" rx="8" ry="6" fill="${R}" stroke="${INK}" stroke-width="1.6"/>${t(300,124,'모세혈관',{s:17})}${t(300,142,'세포 한 겹',{s:12,f:'#6e6488'})}`),
+
+res:()=>svg('0 0 400 360',`
+ <path d="M200 60 Q180 30 200 18 Q222 30 200 60" fill="#FFB29E" stroke="${INK}" stroke-width="2.5"/>
+ ${tube('M200 50 L200 150',18,'#9FD8FF')}
+ ${[70,86,102,118,134].map(y=>`<path d="M191 ${y} Q200 ${y+5} 209 ${y}" stroke="${INK}" stroke-width="2" fill="none"/>`).join('')}
+ <path d="M190 150 Q120 140 100 200 Q86 260 104 300 Q150 320 186 296 Q194 220 190 150 Z" fill="#FF9EBB" stroke="${INK}" stroke-width="3"/>
+ <path d="M210 150 Q280 140 300 200 Q314 260 296 300 Q250 320 214 296 Q206 220 210 150 Z" fill="#FF9EBB" stroke="${INK}" stroke-width="3"/>
+ ${tube('M200 150 Q178 170 160 200 M160 200 L140 240 M160 200 L168 250',10,'#7CC4F5')}${tube('M200 150 Q222 170 240 200 M240 200 L260 240 M240 200 L232 250',10,'#7CC4F5')}
+ ${tube('M90 330 Q200 270 310 330',14,'#FF7A7A')}
+ ${L(200,40,300,30,'코')}${L(209,100,300,90,'숨관')}${L(162,198,96,176,'숨관가지','end')}${L(286,250,320,250,'폐')}${L(140,312,96,306,'가로막','end')}${L(112,250,96,244,'흉강','end')}`),
+
+alv:()=>svg('0 0 360 190',`
+ ${tube('M60 10 L60 60',12,'#7CC4F5')}
+ ${[[40,78],[60,72],[80,78],[46,100],[74,100],[60,118]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="16" fill="#FF9EBB" stroke="${INK}" stroke-width="2.5"/>`).join('')}
+ <path d="M20 70 Q60 150 100 70" fill="none" stroke="${R}" stroke-width="3"/><path d="M24 110 Q60 40 100 110" fill="none" stroke="${B}" stroke-width="3"/>
+ <circle cx="250" cy="90" r="60" fill="#FFF0F5" stroke="${INK}" stroke-width="3"/>${t(250,82,'허파꽈리',{s:15})}${t(250,100,'(공기)',{s:12,f:'#6e6488'})}
+ <path d="M170 160 Q250 175 330 160" fill="none" stroke="${INK}" stroke-width="16"/><path d="M170 160 Q250 175 330 160" fill="none" stroke="#FFD3D7" stroke-width="11"/>${t(250,186,'모세혈관',{s:13})}
+ <path d="M226 132 L226 154" stroke="${R}" stroke-width="3" marker-end="url(#ar2)"/>${t(212,146,'산소',{s:12,f:R,a:'end'})}
+ <path d="M276 154 L276 132" stroke="${B}" stroke-width="3" marker-end="url(#ar3)"/>${t(290,146,'이산화 탄소',{s:12,f:B,a:'start'})}
+ <defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="${R}"/></marker><marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="${B}"/></marker></defs>`),
+
+ur:()=>svg('0 0 400 330',`
+ ${tube('M200 10 L200 300',14,R)}${tube('M180 10 L180 300',14,B)}
+ ${tube('M190 120 L130 120',8,R)}${tube('M190 140 L130 140',8,B)}${tube('M210 120 L270 120',8,R)}${tube('M210 140 L270 140',8,B)}
+ <path d="M70 90 Q40 130 70 170 Q100 200 130 160 Q118 130 130 100 Q100 60 70 90 Z" fill="#D9574B" stroke="${INK}" stroke-width="3"/>
+ <path d="M330 90 Q360 130 330 170 Q300 200 270 160 Q282 130 270 100 Q300 60 330 90 Z" fill="#D9574B" stroke="${INK}" stroke-width="3"/>
+ ${tube('M110 168 Q130 230 172 262',7,'#FFD04D')}${tube('M290 168 Q270 230 228 262',7,'#FFD04D')}
+ <path d="M160 250 Q200 236 240 250 Q250 290 200 300 Q150 290 160 250 Z" fill="#FFE58A" stroke="${INK}" stroke-width="3"/>
+ ${tube('M200 300 L200 324',7,'#FFD04D')}
+ ${L(60,130,20,40,'콩팥','start')}${L(120,210,20,220,'오줌관','start')}${L(232,280,300,290,'방광')}${L(200,320,300,322,'요도')}${L(240,120,300,40,'콩팥동맥')}${L(240,140,300,66,'콩팥정맥')}`),
+
+/* 콩팥 단위: yeonsung-img 의 nephron 그림 바탕 */
+nep:()=>svg('0 0 680 620',`
+ ${tube('M120 30 Q150 90 172 150',12,'#FF4D5E')}${tube('M210 150 Q236 90 270 30',12,'#D9506E')}
+ <path d="M252.8 124.6 A92 92 0 1 1 147.2 124.6 L162.1 145.9 A66 66 0 1 0 237.9 145.9 Z" fill="#FFE9A8" stroke="${INK}" stroke-width="3"/>
+ ${[[182,196,20],[214,190,20],[198,222,20],[176,224,14],[222,222,14],[196,172,14]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="#E5304A" stroke-width="6"/>`).join('')}
+ ${tube('M262 262 C300 300 360 240 400 280 C440 320 380 350 420 390 C450 420 470 420 470 460 L470 560',20,'#FFD04D')}
+ ${tube('M300 40 Q520 80 540 260 L540 560',8,'#D9506E')}
+ <path d="M232 236 L262 262" stroke="#2E9E4B" stroke-width="6" marker-end="url(#g)"/><path d="M482 440 L528 440" stroke="#3D5BE0" stroke-width="6" marker-end="url(#b)"/><path d="M528 500 L482 500" stroke="#8A3FC2" stroke-width="6" marker-end="url(#p)"/>
+ ${t(150,330,'① 여과',{s:24,f:'#2E9E4B'})}${t(610,448,'② 재흡수',{s:24,f:'#3D5BE0'})}${t(610,508,'③ 분비',{s:24,f:'#8A3FC2'})}
+ ${L(196,212,110,402,'토리','end',26)}${L(116,250,150,470,'보먼주머니','end',26)}${L(440,400,330,560,'세뇨관','end',26)}${L(536,200,560,150,'모세혈관','start',26)}
+ ${t(470,606,'↓ 오줌 (콩팥 깔때기로)',{s:18,f:'#6e6488'})}
+ <defs>${[['g','#2E9E4B'],['b','#3D5BE0'],['p','#8A3FC2']].map(([i,c])=>`<marker id="${i}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="${c}"/></marker>`).join('')}</defs>`)
+};
+const put=(id,html)=>{const e=document.getElementById(id); if(e) e.innerHTML=html;};
+[['cell','cellA','cellB'],['dig','digA','digB'],['heart','hrtA','hrtB'],['ves','vesA','vesB'],['res','resA','resB'],['alv','alvA','alvB'],['ur','urA','urB'],['nep','nepA','nepB']].forEach(([k,a,b])=>{
+  put(a,FIG[k]());
+  /* 따라 그리기 쪽: 이름 글자 대신 빈 밑줄 */
+  put(b,FIG[k]().replace(/<line class="keep blankline"([^>]*)stroke="transparent"/g,'<line class="keep"$1stroke="#2B2140"'));
+});
+</script>

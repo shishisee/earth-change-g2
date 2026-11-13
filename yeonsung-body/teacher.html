@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연성이의 몸 탐험 · 선생님 페이지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFE066; --dot:#FFF4B8; --ink:#2b2140; --card:#fff; --pink:#FF5C93; --green:#6BD46B; --muted:#6b6380;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#3b2f5e; --dot:#4a3d72; } }
+:root[data-theme="dark"]{ --bg:#3b2f5e; --dot:#4a3d72; }
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0; font-family:"Gowun Dodum","Apple SD Gothic Neo",sans-serif; color:var(--ink); background:var(--bg);
+  background-image:radial-gradient(var(--dot) 5px, transparent 5.5px); background-size:34px 34px; min-height:100vh}
+.wrap{max-width:1200px; margin:0 auto; padding:16px 14px 40px}
+h1,h2,.pb,.chip,th{font-family:"Jua",sans-serif; font-weight:400}
+h1{margin:0 0 12px; font-size:2rem}
+h2{margin:0 0 10px; font-size:1.3rem}
+.card{background:var(--card); border:3px solid var(--ink); border-radius:22px; box-shadow:5px 5px 0 var(--ink); padding:16px; margin-bottom:16px}
+.pb{font-size:1rem; color:var(--ink); background:var(--c,#fff); border:3px solid var(--ink); border-radius:14px; padding:8px 14px; box-shadow:0 3px 0 var(--ink); cursor:pointer}
+.pb:active{transform:translateY(2px); box-shadow:0 1px 0 var(--ink)}
+.pb:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #4CC9F0; outline-offset:2px}
+input,select{font:inherit; font-size:1.05rem; padding:8px 10px; border:3px solid var(--ink); border-radius:12px; background:#fff; color:var(--ink)}
+.bar{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.muted{color:var(--muted)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:760px; font-size:.95rem}
+th,td{padding:8px 8px; border-bottom:1.5px solid #eee4f7; text-align:center; white-space:nowrap}
+th{background:#fff7d1; position:sticky; top:0}
+td.name{text-align:left; font-weight:700}
+tr.stu{cursor:pointer} tr.stu:hover{background:#fff0f6}
+.ok{color:#1f9a4a; font-weight:700} .no{color:#9a92b0; opacity:.35; filter:grayscale(1)}
+.chip{display:inline-block; padding:3px 9px; border:2px solid var(--ink); border-radius:999px; background:#fff; font-size:.85rem}
+.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+ol{margin:0; padding-left:1.3em} ol li{margin:4px 0}
+.detail td{text-align:left; white-space:normal}
+.err{color:#e0334f}
+.stats{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px}
+.stats .chip{font-size:1rem; padding:6px 12px}
+.banner{border:3px solid var(--ink); border-radius:16px; padding:10px 14px; margin-bottom:14px; background:#fff; font-size:1rem}
+.banner.good{background:#EEFBEF} .banner.bad{background:#FFF1F6}
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin:10px 0}
+.tabs .pb{padding:5px 12px; font-size:.95rem} .tabs .pb.on{--c:#FFE066}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧑‍🏫 연성이의 몸 탐험 · 선생님 페이지</h1>
+  <div class="banner" id="status" hidden></div>
+  <div id="main">
+    <div class="card">
+      <div class="bar">
+        <input id="fName" placeholder="이름 검색" aria-label="이름 검색">
+        <button class="pb" id="reload">🔄 새로고침</button>
+        <label class="muted"><input type="checkbox" id="auto" checked style="width:auto;padding:0"> 30초마다 자동</label>
+        <button class="pb" id="csv">⬇️ 엑셀(CSV) 저장</button>
+        <button class="pb" id="wipe" style="margin-left:auto">🗑 기록 전체 삭제</button>
+      </div>
+      <div class="tabs" id="clsTabs"></div>
+      <p class="muted" id="updated"></p>
+      <p class="muted" id="legend"></p>
+      <div class="stats" id="stats"></div>
+      <div class="scroll"><table id="tbl"></table></div>
+    </div>
+    <div class="card" id="detailCard" hidden><h2 id="detailTitle"></h2><div class="scroll"><table class="detail" id="detail"></table></div></div>
+    <h2 style="color:var(--ink)">📉 많이 틀린 문제 TOP 5</h2>
+    <div class="grid" id="wrongs"></div>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* 다른 주소에 올린 선생님 페이지에서도 쓸 수 있게: 학생 사이트 주소 */
+const API=(location.hostname==='yeonsung-body.vercel.app'||location.hostname==='localhost'||location.hostname==='127.0.0.1')?'':'https://yeonsung-body.vercel.app';
+const SYSTEMS=['소화계','순환계','호흡계','배설계'], ALL='통합 퀴즈';
+const ICON={'스티커':'🧩','몸속 여행':'🚀','심장 펌프':'❤️','숨쉬기 실험':'🫁','기체 교환':'🫧','콩팥 실험실':'🔬'};
+const ACTS={'소화계':['스티커','몸속 여행'],'순환계':['스티커','심장 펌프'],'호흡계':['스티커','숨쉬기 실험','기체 교환'],'배설계':['스티커','콩팥 실험실']};
+/* 옛 이름 → 새 이름 (예전 기록도 함께 셈) */
+const RENAME={'퀄즈':'퀴즈','통합 퀄즈':'통합 퀴즈','네프론 실험실':'콩팥 실험실'};
+const norm=d=>({...d, mode:RENAME[d.mode]||d.mode, system:RENAME[d.system]||d.system, cls:String(d.cls??''), num:String(d.num??'')});
+let DATA=[], CLS='', timer=null;
+$('legend').textContent=Object.entries(ICON).map(([k,v])=>v+' '+k).join(' · ')+' (진하면 완료)';
+
+async function status(){
+  const b=$('status');
+  try{
+    const s=await (await fetch(API+'/api/records?status=1',{cache:'no-store'})).json();
+    let msg, good=false;
+    if(s.store==='none') msg='⚠️ 기록 저장소가 연결되어 있지 않아요. 학생 기록이 저장되지 않는 상태예요.';
+    else if(!s.ok) msg=`⚠️ 기록 저장소에 문제가 있어요. 무료 한도를 넘었다면 다음 달에 다시 열려요 (학생 기록은 학생 기기에 남아 있다가 그때 들어와요). <span class="muted">${esc(s.error||'')}</span>`;
+    else { good=true; msg=`🟢 기록 저장 정상 · 저장된 기록 ${s.count}개`; }
+    b.innerHTML=msg; b.className='banner '+(good?'good':'bad'); b.hidden=false;
+  }catch(e){ b.innerHTML='⚠️ 학생 사이트 서버에 연결하지 못했어요.'; b.className='banner bad'; b.hidden=false; }
+}
+async function load(){
+  $('updated').textContent='불러오는 중…';
+  let r;
+  try{ r=await fetch(API+'/api/records',{cache:'no-store'}); }
+  catch(e){ $('updated').textContent='서버에 연결하지 못했어요. 인터넷을 확인해 주세요.'; return; }
+  if(!r.ok){ $('updated').textContent='기록을 불러오지 못했어요 (저장소 문제). 위 안내를 확인해 주세요.'; return; }
+  DATA=(await r.json()).map(norm).sort((a,b)=>a.t-b.t);
+  $('updated').textContent=`마지막 불러오기: ${new Date().toLocaleTimeString('ko-KR')} · 전체 기록 ${DATA.length}개`;
+  render();
+}
+function setAuto(){ clearInterval(timer); if($('auto').checked) timer=setInterval(()=>{ if(!document.hidden) load(); },30000); }
+$('reload').onclick=()=>{ status(); load(); }; $('fName').oninput=render; $('auto').onchange=setAuto;
+
+function filtered(){ const n=$('fName').value.trim(); return DATA.filter(d=>(!CLS||d.cls===CLS)&&(!n||d.name.includes(n))); }
+function students(list){
+  const m=new Map();
+  list.forEach(d=>{ const k=`${d.cls}|${d.num}|${d.name}`; if(!m.has(k)) m.set(k,{cls:d.cls,num:d.num,name:d.name,rec:[]}); m.get(k).rec.push(d); });
+  return [...m.values()].sort((a,b)=>(a.cls-b.cls)||(a.num-b.num)||a.name.localeCompare(b.name));
+}
+const best=r=>r.length?r.reduce((a,b)=>b.score>a.score?b:a):null;
+function summary(s,sys){
+  const r=s.rec.filter(d=>d.system===sys), q=r.filter(d=>d.mode==='퀴즈');
+  return { acts:new Set(r.map(d=>d.mode)), best:best(q), tries:q.length };
+}
+function cell(sm,sys){
+  const icons=ACTS[sys].map(m=>`<span class="${sm.acts.has(m)?'ok':'no'}" title="${m}">${ICON[m]}</span>`).join(' ');
+  return `<td>${icons}<br>${sm.best?`<b>${sm.best.score}점</b> <span class="muted">(${sm.best.right}/${sm.best.total}, ${sm.tries}회)</span>`:'<span class="no">퀴즈 전</span>'}</td>`;
+}
+function render(){
+  const clsList=[...new Set(DATA.map(d=>d.cls))].sort((a,b)=>a-b);
+  $('clsTabs').innerHTML=['',...clsList].map(c=>`<button class="pb${c===CLS?' on':''}" data-c="${esc(c)}">${c?esc(c)+'반':'전체'}</button>`).join('');
+  document.querySelectorAll('#clsTabs .pb').forEach(b=>b.onclick=()=>{ CLS=b.dataset.c; render(); });
+  const list=filtered(), st=students(list);
+  const done=st.filter(s=>SYSTEMS.every(x=>summary(s,x).best)).length;
+  const today=new Date().toDateString(), todayN=new Set(list.filter(d=>new Date(d.t).toDateString()===today).map(d=>d.cls+'|'+d.num+'|'+d.name)).size;
+  $('stats').innerHTML=`<span class="chip">참여 학생 ${st.length}명</span><span class="chip">오늘 활동 ${todayN}명</span><span class="chip">네 기관계 퀴즈 모두 푼 학생 ${done}명</span><span class="chip">기록 ${list.length}개</span>`;
+  $('tbl').innerHTML=`<thead><tr><th>반</th><th>번호</th><th>이름</th>${SYSTEMS.map(s=>`<th>${s}</th>`).join('')}<th>통합 퀴즈</th><th>마지막 활동</th></tr></thead><tbody>`+
+    (st.length?st.map((s,i)=>{ const b=best(s.rec.filter(d=>d.system===ALL&&d.mode==='퀴즈'));
+      return `<tr class="stu" data-i="${i}"><td>${esc(s.cls)}</td><td>${esc(s.num)}</td><td class="name">${esc(s.name)}</td>
+        ${SYSTEMS.map(x=>cell(summary(s,x),x)).join('')}
+        <td>${b?`<b>${b.score}점</b> <span class="muted">(${b.right}/${b.total})</span>`:'<span class="no">-</span>'}</td>
+        <td class="muted">${new Date(s.rec[s.rec.length-1].t).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</td></tr>`; }).join('')
+      :'<tr><td colspan="9" class="muted">아직 기록이 없어요. 학생들이 활동을 마치면 여기에 나타나요.</td></tr>')+'</tbody>';
+  document.querySelectorAll('tr.stu').forEach(tr=>tr.onclick=()=>showDetail(st[+tr.dataset.i]));
+  $('wrongs').innerHTML=[...SYSTEMS,ALL].map(sys=>{
+    const cnt={}; list.filter(d=>d.system===sys&&d.mode==='퀴즈').forEach(d=>(d.wrong||[]).forEach(w=>cnt[w]=(cnt[w]||0)+1));
+    const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    return `<div class="card"><h2>${sys}</h2>${top.length?`<ol>${top.map(([q,n])=>`<li>${esc(q)} <span class="chip">${n}명</span></li>`).join('')}</ol>`:'<p class="muted">아직 없어요</p>'}</div>`;
+  }).join('');
+}
+function result(d){
+  if(d.mode==='퀴즈') return `${d.score}점 (한 번에 ${d.right}/${d.total})`;
+  if(d.mode==='오답 풀기') return `${d.total}문제 복습 · 다시 틀림 ${d.score}번`;
+  return `완료 · 실수 ${d.score}번${d.sec?` · ${d.sec}초`:''}`;
+}
+function showDetail(s){
+  $('detailCard').hidden=false; $('detailTitle').textContent=`${s.cls}반 ${s.num}번 ${s.name} · 활동 기록`;
+  $('detail').innerHTML='<thead><tr><th>시간</th><th>기관계</th><th>활동</th><th>결과</th><th>틀린 문제</th></tr></thead><tbody>'+
+    [...s.rec].reverse().map(d=>`<tr><td>${new Date(d.t).toLocaleString('ko-KR')}</td><td>${esc(d.system)}</td><td>${esc(d.mode)}</td><td>${result(d)}</td><td>${esc((d.wrong||[]).join(' / '))}</td></tr>`).join('')+'</tbody>';
+  $('detailCard').scrollIntoView({behavior:'smooth'});
+}
+$('csv').onclick=()=>{
+  const rows=[['반','번호','이름','기관계','활동','점수/실수','정답수','문항수','남은하트','소요초','틀린문제','시간']];
+  filtered().forEach(d=>rows.push([d.cls,d.num,d.name,d.system,d.mode,d.score,d.right,d.total,d.hp??'',d.sec||'',(d.wrong||[]).join(' / '),new Date(d.t).toLocaleString('ko-KR')]));
+  const csv='﻿'+rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`연성이_몸탐험_기록_${new Date().toISOString().slice(0,10)}.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+$('wipe').onclick=async()=>{
+  /* 학생이 실수로 지우지 못하게, 전체 삭제할 때만 선생님 코드를 물어봄 */
+  const pin=prompt('모든 학생 기록을 삭제해요. 되돌릴 수 없어요.\n지우려면 선생님 코드를 입력해 주세요.');
+  if(!pin) return;
+  const r=await fetch(API+'/api/records?pin='+encodeURIComponent(pin.trim()),{method:'DELETE'});
+  if(r.ok){ status(); await load(); } else alert(r.status===401?'코드가 맞지 않아요.':'삭제하지 못했어요.');
+};
+status(); load(); setAuto();
+</script>
+</body>
+</html>
