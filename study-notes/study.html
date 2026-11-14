@@ -15,7 +15,7 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--desk);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;word-break:keep-all;overflow-wrap:break-word;
+body{margin:0;background:var(--desk);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;word-break:keep-all;overflow-wrap:normal;line-break:strict;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px}
 .sheet{background:var(--paper);max-width:794px;margin:0 auto 24px;padding:34px 40px 30px;border:1px solid #E3DCCD;box-shadow:0 2px 0 #E3DCCD;position:relative}
 h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;text-wrap:balance;line-height:1.25}
@@ -51,6 +51,7 @@ td.l{text-align:left}
 .fig.trc svg text{display:none}
 .fig.trc svg .to{stroke:var(--trace)!important;stroke-dasharray:none}
 .fig.trc svg .ti{stroke:var(--paper)!important;stroke-dasharray:none}
+.fig.trc svg line[stroke="#6e6488"]:not([stroke-dasharray]),.fig.trc svg circle[fill="#6e6488"]{stroke:var(--ink)!important;fill:var(--ink)!important;stroke-dasharray:none}
 .fig.trc svg .keep{stroke:var(--ink)!important;stroke-dasharray:none;stroke-width:1.5}
 .fig.trc svg .lab{display:inline;fill:var(--ink)!important;stroke:none!important;font-family:var(--f-body)}
 .fig .frame{border:1.5px dashed var(--rule);border-radius:10px;padding:6px}
@@ -148,7 +149,7 @@ td.l{text-align:left}
     <tr><td>위</td><td>위액: <b>펩신</b>, 염산</td><td class="l">단백질 분해 시작 · 염산은 펩신 작용을 돕고 세균을 없앰</td></tr>
     <tr><td>간 · 쓸개</td><td>쓸개즙 (<b>효소 없음</b>)</td><td class="l">간에서 만들고 쓸개에 저장 → 작은창자로 · 지방을 작은 알갱이로 부숨</td></tr>
     <tr><td>이자</td><td>이자액: <b>아밀레이스 · 트립신 · 라이페이스</b></td><td class="l">작은창자로 분비 · 녹말, 단백질, 지방을 모두 분해</td></tr>
-    <tr><td>작은창자</td><td>탄수화물·단백질 소화 효소</td><td class="l">소화가 끝남 · <b>융털</b>에서 흡수 (포도당·아미노산 → 모세혈관, 지방산·모노글리세리드 → 암죽관)</td></tr>
+    <tr><td>작은창자</td><td>탄수화물 · 단백질 소화 효소</td><td class="l">소화가 끝남 · <b>융털</b>에서 흡수 (포도당 · 아미노산 → 모세혈관, 지방산 · 모노글리세리드 → 암죽관)</td></tr>
     <tr><td>큰창자</td><td>효소 <b>없음</b></td><td class="l">물 흡수 · 찌꺼기는 항문으로</td></tr>
   </table></div>
   <div class="grid2" style="margin-top:10px">
@@ -176,13 +177,17 @@ td.l{text-align:left}
     <p>작은창자의 융털은 표면적을 넓혀 영양소를 잘 흡수한다.</p>
   </div>
 
-  <h2 class="pb"><i>③</i>따라 그리기 <small>소화관은 진하게, 간·쓸개·이자는 소화관 밖에!</small></h2>
+  <h2 class="pb"><i>③</i>따라 그리기 <small>소화관은 진하게, 간 · 쓸개 · 이자는 소화관 밖에!</small></h2>
   <div class="draw">
     <figure class="fig"><div class="frame" id="digA"></div><figcaption>보고 그리기</figcaption></figure>
     <figure class="fig trc"><div class="frame" id="digB"></div><figcaption>점선 따라 그리고, 선 끝에 기관 이름 9개 쓰기</figcaption></figure>
   </div>
+  <div class="draw" style="margin-top:8px">
+    <figure class="fig"><div class="frame" id="vilA"></div></figure>
+    <figure class="fig trc"><div class="frame" id="vilB"></div><figcaption>융털 따라 그리고 모세혈관 · 암죽관 이름 쓰기</figcaption></figure>
+  </div>
 
-  <h2><i>④</i>혼자 써 보기 <small>녹말·단백질·지방이 어디서, 무엇에 의해, 무엇으로 분해되는지</small></h2>
+  <h2><i>④</i>혼자 써 보기 <small>녹말 · 단백질 · 지방이 어디서, 무엇에 의해, 무엇으로 분해되는지</small></h2>
   <div class="write"><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
   <div class="foot"><span>중2 과학 · 동물과 에너지</span><span>1 · 소화계</span></div>
 </section>
@@ -224,8 +229,8 @@ td.l{text-align:left}
 
   <h2 class="pb"><i>③</i>따라 그리기 <small>산소 많은 피는 빨강, 적은 피는 파랑으로 색칠하기</small></h2>
   <div class="draw">
-    <figure class="fig"><div class="frame" id="hrtA"></div><figcaption>그림의 왼쪽 = 몸의 오른쪽 · 흰 삼각형 = 판막</figcaption></figure>
-    <figure class="fig trc"><div class="frame" id="hrtB"></div><figcaption>점선 따라 그리고 방·혈관 이름 8개 쓰기</figcaption></figure>
+    <figure class="fig"><div class="frame" id="hrtA"></div><figcaption>보고 그리기</figcaption></figure>
+    <figure class="fig trc"><div class="frame" id="hrtB"></div><figcaption>점선 따라 그리고 방 · 혈관 이름 8개 쓰기</figcaption></figure>
   </div>
   <div class="draw" style="margin-top:8px">
     <figure class="fig"><div class="frame" id="vesA"></div></figure>
@@ -256,7 +261,7 @@ td.l{text-align:left}
       <tr><td>공기</td><td>몸 밖 → 폐</td><td>폐 → 몸 밖</td></tr>
     </table></div>
   </div>
-  <p class="q">호흡 운동 모형: 고무막 = <b>가로막</b> · 고무풍선 = <b>폐</b> · 빨대 = <b>숨관·숨관가지</b> · 페트병 속 공간 = <b>흉강</b>. 폐에는 근육이 없다!</p>
+  <p class="q">호흡 운동 모형: 고무막 = <b>가로막</b> · 고무풍선 = <b>폐</b> · 빨대 = <b>숨관 · 숨관가지</b> · 페트병 속 공간 = <b>흉강</b>. 폐에는 근육이 없다!</p>
 
   <h2><i>②</i>따라 쓰기</h2>
   <div class="trace">
@@ -292,8 +297,8 @@ td.l{text-align:left}
     </div>
     <div class="tw"><table>
       <tr><th>과정</th><th>방향</th><th>무엇이?</th></tr>
-      <tr><td>① 여과</td><td>토리 → 보먼주머니</td><td class="l">크기가 작은 물·포도당·아미노산·요소·무기염류 (혈구·단백질 X)</td></tr>
-      <tr><td>② 재흡수</td><td>세뇨관 → 모세혈관</td><td class="l">필요한 물질 (포도당·아미노산은 <b>전부</b>)</td></tr>
+      <tr><td>① 여과</td><td>토리 → 보먼주머니</td><td class="l">크기가 작은 물 · 포도당 · 아미노산 · 요소 · 무기염류 (혈구 · 단백질 X)</td></tr>
+      <tr><td>② 재흡수</td><td>세뇨관 → 모세혈관</td><td class="l">필요한 물질 (포도당 · 아미노산은 <b>전부</b>)</td></tr>
       <tr><td>③ 분비</td><td>모세혈관 → 세뇨관</td><td class="l">남은 요소 등 노폐물</td></tr>
     </table></div>
   </div>
@@ -352,6 +357,117 @@ td.l{text-align:left}
 </section>
 
 <script>
+/* 연성이 그림 사이트(yeonsung-img.vercel.app)의 resp.svg · villi.svg 를 그대로 옮김. 이름표만 교과서 용어(작은창자). */
+const SITE_INK='#2b2140', SITE_GRAY='#6e6488';
+const sT=(x,y,s,fs,a,f)=>`<text x="${x}" y="${y}" font-size="${fs}" fill="${f||SITE_INK}" text-anchor="${a}">${s}</text>`;
+const sLab=(x1,y1,x2,y2,tx,ty,s,a,fs=24)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${SITE_GRAY}" stroke-width="2"/><circle cx="${x1}" cy="${y1}" r="4" fill="${SITE_GRAY}"/>${sT(tx,ty,s,fs,a)}`;
+const sTube=(d,w,c,o)=>`<path class="to" d="${d}" fill="none" stroke="${SITE_INK}" stroke-width="${o}" stroke-linecap="round" stroke-linejoin="round"/><path class="ti" d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const sSvg=(w,h,b)=>`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" font-family="Jua, 'Gowun Dodum', sans-serif"><rect width="${w}" height="${h}" fill="#ffffff"/>${b}</svg>`;
+const sMark=(id,c)=>`<marker id="${id}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="${c}"/></marker>`;
+
+const SITE={
+resp:()=>{
+ const ribs=[0,1,2,3,4].map(k=>{const y=280+k*40;return `<path d="M318 ${y} Q240 ${y-24} ${186-2*k} ${y+22}" stroke="#B9A7C9" stroke-width="5" fill="none" opacity="0.8" stroke-linecap="round"/><path d="M322 ${y} Q400 ${y-24} ${454+2*k} ${y+22}" stroke="#B9A7C9" stroke-width="5" fill="none" opacity="0.8" stroke-linecap="round"/>`}).join('');
+ const rings=[175,193,211,229,247,265,283,301].map(y=>`<path d="M309 ${y} Q320 ${y+6} 331 ${y}" stroke="${SITE_INK}" stroke-width="2.5" fill="none"/>`).join('');
+ const grape=(pts)=>pts.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6" fill="#FF7FA6" stroke="${SITE_INK}" stroke-width="1.5"/>`).join('');
+ const g3=(x,y)=>[[x,y],[x+12,y],[x+6,y+8]];
+ return sSvg(680,640,`
+ <circle cx="320" cy="100" r="66" fill="#FFF1E4" stroke="#E6CDB8" stroke-width="3"/><rect x="285" y="160" width="70" height="40" fill="#FFF1E4"/><rect x="140" y="190" width="360" height="430" rx="90" fill="#FFF1E4" stroke="#E6CDB8" stroke-width="3"/><rect x="286" y="150" width="68" height="50" fill="#FFF1E4"/>
+ <circle cx="298" cy="86" r="6" fill="${SITE_INK}"/><circle cx="342" cy="86" r="6" fill="${SITE_INK}"/>
+ <path d="M312 100 Q320 88 328 100 Q332 114 320 116 Q308 114 312 100 Z" fill="#FFB29E" stroke="${SITE_INK}" stroke-width="2.5" stroke-linejoin="round"/><path d="M305 132 Q320 140 335 132" stroke="${SITE_INK}" stroke-width="3" fill="none" stroke-linecap="round"/>
+ <path d="M300 255 Q230 236 196 300 Q170 370 178 460 Q186 512 232 520 Q282 524 302 498 Q312 380 300 255 Z" fill="#FF9EBB" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M340 255 Q410 236 444 300 Q470 370 462 460 Q454 512 408 520 Q362 524 342 498 Q332 380 340 255 Z" fill="#FF9EBB" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ ${ribs}${sTube('M320 150 L320 315',26,'#9FD8FF',32)}${rings}
+ ${sTube('M320 312 Q290 330 262 360 M262 360 L236 410 M262 360 L270 430 M236 410 L222 450 M236 410 L250 460',12,'#7CC4F5',18)}
+ ${sTube('M320 312 Q350 330 378 360 M378 360 L404 410 M378 360 L370 430 M404 410 L418 450 M404 410 L392 460',12,'#7CC4F5',18)}
+ ${grape([...g3(216,458),...g3(244,468),...g3(264,438),...g3(412,458),...g3(386,468),...g3(364,438)])}
+ ${sTube('M150 560 Q320 470 490 560',16,'#FF7A7A',22)}
+ <line x1="424" y1="462" x2="560" y2="430" stroke="${SITE_GRAY}" stroke-width="2" stroke-dasharray="6 5"/>
+ <circle cx="600" cy="430" r="66" fill="#fff" stroke="${SITE_INK}" stroke-width="3"/>${sTube('M600 372 L600 410',10,'#7CC4F5',16)}
+ ${[[576,420],[600,424],[624,420],[586,446],[614,446],[600,466]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="15" fill="#FF7FA6" stroke="${SITE_INK}" stroke-width="2"/>`).join('')}
+ ${sT(600,524,'허파꽈리',24,'middle')}${sT(600,552,'(크게 확대)',17,'middle',SITE_GRAY)}
+ ${sLab(312,106,70,100,40,108,'코','start')}${sLab(312,230,94,222,40,230,'숨관','start')}${sLab(266,358,142,332,40,340,'숨관가지','start')}
+ ${sLab(190,410,70,412,40,420,'폐','start')}${sLab(200,540,118,582,40,590,'가로막','start')}${sLab(456,330,582,292,660,300,'갈비뼈','end')}${sLab(331,220,494,193,500,200,'연골 고리','start',20)}`);
+},
+villi:()=>{
+ const one=(dx)=>`<path d="M${115+dx} 360 L${115+dx} 160 Q${115+dx} 100 ${170+dx} 100 Q${225+dx} 100 ${225+dx} 160 L${225+dx} 360 Z" fill="#FFC7B8" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M${136+dx} 352 L${136+dx} 160 Q${136+dx} 124 ${170+dx} 124 Q${204+dx} 124 ${204+dx} 160 L${204+dx} 352" fill="none" stroke="#E5304A" stroke-width="6" stroke-linecap="round"/>
+  ${[190,240,290].map(y=>`<path d="M${136+dx} ${y} L${150+dx} ${y+14} M${204+dx} ${y} L${190+dx} ${y+14}" stroke="#E5304A" stroke-width="4" stroke-linecap="round"/>`).join('')}
+  ${sTube(`M${170+dx} 352 L${170+dx} 165`,12,'#FFD04D',18)}`;
+ return sSvg(640,500,`<defs>${sMark('vred','#E5304A')}${sMark('vgray',SITE_GRAY)}</defs>
+ <rect x="40" y="350" width="560" height="50" rx="10" fill="#FFB3A1" stroke="${SITE_INK}" stroke-width="3"/>
+ ${one(0)}${one(150)}${one(300)}
+ <rect x="44" y="356" width="552" height="40" fill="#FFB3A1"/>${sT(320,384,'작은창자 안쪽 벽',20,'middle','#8a4a3a')}
+ ${[200,250,300].map(y=>`<circle cx="92" cy="${y}" r="9" fill="#E5304A" stroke="${SITE_INK}" stroke-width="2"/>`).join('')}
+ <line x1="104" y1="250" x2="128" y2="250" stroke="#E5304A" stroke-width="4" stroke-linecap="round" marker-end="url(#vred)"/>
+ <path d="M395 165 L405 183 L385 183 Z" fill="#FFD04D" stroke="${SITE_INK}" stroke-width="2"/><path d="M395 215 L405 233 L385 233 Z" fill="#FFD04D" stroke="${SITE_INK}" stroke-width="2"/>
+ <line x1="408" y1="200" x2="455" y2="200" stroke="${SITE_GRAY}" stroke-width="4" stroke-linecap="round" marker-end="url(#vgray)"/>
+ ${sLab(150,104,94,52,40,60,'융털','start')}${sLab(504,200,458,52,560,60,'모세혈관','end')}${sLab(472,290,522,292,600,300,'암죽관','end')}
+ <circle cx="70" cy="438" r="9" fill="#E5304A" stroke="${SITE_INK}" stroke-width="2"/>${sT(90,446,'포도당, 아미노산 → 모세혈관',21,'start')}
+ <path d="M70 466 L80 484 L60 484 Z" fill="#FFD04D" stroke="${SITE_INK}" stroke-width="2"/>${sT(90,482,'지방산, 모노글리세리드 → 암죽관',21,'start')}`);
+}
+};
+/* heart · vessels · urinary · alveolus (yeonsung-img 그대로) */
+const sArrow=(x1,y1,x2,y2,c,m,w=5)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" marker-end="url(#${m})"/>`;
+const sDefs=`<defs>${sMark('swhite','#ffffff')}${sMark('sred','#E5304A')}${sMark('sblue','#3D5BE0')}${sMark('sgray',SITE_GRAY)}</defs>`;
+const sPill=(x,y,s)=>`<rect x="${x-42}" y="${y-22}" width="84" height="30" rx="15" fill="#fff" stroke="${SITE_INK}" stroke-width="2"/>${sT(x,y,s,19,'middle')}`;
+Object.assign(SITE,{
+heart:()=>sSvg(660,690,`${sDefs}
+ ${sTube('M100 340 Q60 330 60 270 L60 92',34,'#5B7BFF',40)}${sTube('M560 340 Q600 330 600 270 L600 92',34,'#FF4D5E',40)}
+ ${sTube('M240 70 L240 170',34,'#5B7BFF',40)}${sTube('M420 70 L420 170',34,'#FF4D5E',40)}
+ ${sArrow(60,150,60,110,'#fff','swhite')}${sArrow(600,150,600,110,'#fff','swhite')}${sArrow(240,95,240,140,'#fff','swhite')}${sArrow(420,95,420,140,'#fff','swhite')}
+ <path d="M150 170 H320 V300 H150 Q118 300 118 260 V210 Q118 170 150 170 Z" fill="#6F8CFF" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M340 170 H510 Q542 170 542 210 V260 Q542 300 510 300 H340 Z" fill="#FF6B7F" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M100 310 H320 V520 Q200 505 108 380 Q96 340 100 310 Z" fill="#4F6BE8" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M118 322 H306 V496 Q212 482 128 380 Q114 348 118 322 Z" fill="#7F95F2" stroke="${SITE_INK}" stroke-width="2" stroke-linejoin="round"/>
+ <path d="M340 310 H560 Q564 340 552 380 Q460 505 340 540 Z" fill="#C9334A" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M362 334 H522 Q520 360 508 384 Q440 470 362 500 Z" fill="#F0445C" stroke="${SITE_INK}" stroke-width="2" stroke-linejoin="round"/>
+ <path d="M213 296 L257 296 L235 322 Z" fill="#fff" stroke="${SITE_INK}" stroke-width="2.5"/><path d="M428 296 L472 296 L450 322 Z" fill="#fff" stroke="${SITE_INK}" stroke-width="2.5"/>
+ ${sArrow(235,230,235,280,'#fff','swhite')}${sArrow(440,230,440,280,'#fff','swhite')}
+ ${sT(235,200,'우심방',26,'middle','#fff')}${sT(440,200,'좌심방',26,'middle','#fff')}${sT(235,395,'우심실',26,'middle','#fff')}${sT(440,395,'좌심실',26,'middle','#fff')}
+ ${sPill(60,212,'폐동맥')}${sPill(600,212,'대동맥')}${sPill(240,122,'대정맥')}${sPill(420,122,'폐정맥')}
+ ${sT(60,40,'폐로',20,'middle',SITE_GRAY)}${sT(600,40,'온몸으로',20,'middle',SITE_GRAY)}${sT(240,40,'온몸에서',20,'middle',SITE_GRAY)}${sT(420,40,'폐에서',20,'middle',SITE_GRAY)}
+ ${sT(450,572,'↑ 좌심실은 벽이 가장 두꺼워요',18,'middle',SITE_GRAY)}
+ <rect x="30" y="610" width="26" height="20" rx="4" fill="#FF4D5E" stroke="${SITE_INK}" stroke-width="2"/>${sT(64,627,'산소가 많은 피',20,'start')}
+ <rect x="230" y="610" width="26" height="20" rx="4" fill="#5B7BFF" stroke="${SITE_INK}" stroke-width="2"/>${sT(264,627,'산소가 적은 피',20,'start')}
+ <path d="M440 612 L470 612 L455 632 Z" fill="#fff" stroke="${SITE_INK}" stroke-width="2.5"/>${sT(480,627,'판막',20,'start')}
+ ${sT(330,670,'그림의 왼쪽이 심장의 오른쪽(우심방, 우심실)이에요.',19,'middle',SITE_GRAY)}`),
+ves:()=>{const cap=[0,45,90,135,180,225,270,315].map(a=>{const r=a*Math.PI/180,x=(560+30*Math.cos(r)).toFixed(1),y=(130+30*Math.sin(r)).toFixed(1);return `<ellipse cx="${x}" cy="${y}" rx="15" ry="11" transform="rotate(${a+90} ${x} ${y})" fill="#FFE3EC" stroke="${SITE_INK}" stroke-width="2"/>`}).join('');
+ const row=(y,a,b,c)=>sT(120,y,a,20,'middle')+sT(340,y,b,20,'middle')+sT(560,y,c,20,'middle');
+ return sSvg(680,650,`${sDefs}
+ <circle cx="120" cy="130" r="80" fill="#FF4D5E" stroke="${SITE_INK}" stroke-width="3"/><circle cx="120" cy="130" r="40" fill="#FFE0E3" stroke="${SITE_INK}" stroke-width="3"/>
+ <ellipse cx="340" cy="130" rx="86" ry="74" fill="#5B7BFF" stroke="${SITE_INK}" stroke-width="3"/><ellipse cx="340" cy="130" rx="72" ry="60" fill="#E0E6FF" stroke="${SITE_INK}" stroke-width="3"/>
+ ${cap}<ellipse cx="560" cy="130" rx="11" ry="8" fill="#E5304A" stroke="${SITE_INK}" stroke-width="2"/>${sT(560,196,'(크게 확대)',17,'middle',SITE_GRAY)}
+ ${sLab(72,76,122,33,30,40,'두꺼운 벽','start',19)}${sLab(400,85,367,33,440,40,'얇은 벽','end',19)}${sLab(586,106,537,33,640,40,'세포 한 겹','end',19)}${sLab(572,132,607,133,670,140,'적혈구','end',19)}
+ ${sT(120,260,'동맥',30,'middle','#E5304A')}${sT(340,260,'정맥',30,'middle','#3D5BE0')}${sT(560,260,'모세혈관',30,'middle','#8a3a5a')}
+ ${row(298,'심장 → 몸','몸 → 심장','동맥과 정맥 사이')}${row(330,'벽: 가장 두꺼움','벽: 동맥보다 얇음','벽: 세포 한 겹')}${row(362,'판막: 없음','판막: 있음','굵기: 가장 가늘다')}${row(394,'혈압: 가장 높음','혈압: 가장 낮음','물질 교환을 해요')}
+ <line x1="20" y1="440" x2="660" y2="440" stroke="#ddd" stroke-width="2"/>${sT(340,478,'정맥 속 판막: 피가 거꾸로 흐르지 않게 막아요',22,'middle')}
+ <path d="M60 520 H560 V590 H60 Z" fill="#E0E6FF" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ ${[200,400].map(x=>`<path d="M${x} 520 L${x+46} 550" stroke="${SITE_INK}" stroke-width="5" stroke-linecap="round"/><path d="M${x} 590 L${x+46} 560" stroke="${SITE_INK}" stroke-width="5" stroke-linecap="round"/>`).join('')}
+ ${sArrow(90,555,170,555,'#3D5BE0','sblue',6)}${sArrow(290,555,370,555,'#3D5BE0','sblue',6)}${sT(610,564,'심장 쪽',21,'middle','#3D5BE0')}
+ ${sArrow(530,555,470,555,SITE_GRAY,'sgray')}${sT(495,542,'×',30,'middle','#E5304A')}${sT(340,630,'피가 거꾸로 가려 하면 판막이 닫혀요.',19,'middle',SITE_GRAY)}`)},
+ur:()=>{const kid='<path d="M222 190 Q170 190 170 260 Q170 330 222 330 Q262 330 256 292 Q244 260 256 228 Q262 190 222 190 Z" fill="#C4506A" stroke="'+SITE_INK+'" stroke-width="3" stroke-linejoin="round"/>';
+ return sSvg(620,680,`<rect x="150" y="60" width="320" height="600" rx="100" fill="#FFF1E4" stroke="#E6CDB8" stroke-width="3"/><rect x="298" y="80" width="24" height="380" rx="10" fill="#F1E3D3"/>
+ ${kid}<g transform="translate(620 0) scale(-1 1)">${kid}</g>
+ ${sTube('M254 262 Q262 380 284 470',9,'#FFD04D',15)}${sTube('M366 262 Q358 380 336 470',9,'#FFD04D',15)}
+ <path d="M250 500 Q250 456 310 456 Q370 456 370 500 Q370 566 310 572 Q250 566 250 500 Z" fill="#FFE27A" stroke="${SITE_INK}" stroke-width="3" stroke-linejoin="round"/>
+ ${sTube('M310 574 L310 632',9,'#FFD04D',15)}
+ ${sLab(200,260,94,252,40,260,'콩팥','start')}${sLab(264,380,118,372,40,380,'오줌관','start')}${sLab(360,510,526,502,580,510,'방광','end')}${sLab(312,620,526,612,580,620,'요도','end')}
+ ${sT(310,40,'오줌이 나가는 길: 콩팥 → 오줌관 → 방광 → 요도',20,'middle',SITE_GRAY)}`)},
+alv:()=>{const d='M60 257.9 L188.4 257.9 A140 140 0 0 0 451.6 257.9 L580 257.9';
+ return sSvg(640,480,`${sDefs}<defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5B7BFF"/><stop offset="0.5" stop-color="#B060C0"/><stop offset="1" stop-color="#FF4D5E"/></linearGradient></defs>
+ ${sTube('M320 40 L320 100',46,'#BDEBFF',52)}
+ <circle cx="320" cy="210" r="112" fill="#FFE3EC" stroke="${SITE_INK}" stroke-width="3"/><rect x="298" y="90" width="44" height="18" fill="#BDEBFF"/>
+ <path class="to" d="${d}" fill="none" stroke="${SITE_INK}" stroke-width="44" stroke-linecap="round"/><path class="ti" d="${d}" fill="none" stroke="url(#sg)" stroke-width="38" stroke-linecap="round"/>
+ ${sArrow(80,257.9,120,257.9,'#fff','swhite')}${sArrow(520,257.9,560,257.9,'#fff','swhite')}
+ ${[[260,170],[300,150],[350,175],[380,220],[262,200]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="9" fill="#E5304A" stroke="${SITE_INK}" stroke-width="2"/>`).join('')}
+ ${sArrow(290,260,290,335,'#E5304A','sred',6)}${sArrow(360,340,360,268,'#3D5BE0','sblue',6)}
+ ${sT(250,250,'산소',22,'middle','#E5304A')}${sT(400,408,'이산화 탄소',22,'middle','#3D5BE0')}
+ ${sLab(228,140,142,82,40,90,'허파꽈리','start')}${sLab(344,60,483,53,600,60,'숨관가지 끝','end',20)}${sLab(150,262,142,372,40,380,'모세혈관','start')}
+ ${sT(110,318,'산소가 적은 피',18,'middle','#3D5BE0')}${sT(540,318,'산소가 많은 피',18,'middle','#E5304A')}
+ ${sT(320,455,'기체는 많은 곳에서 적은 곳으로 이동해요.',21,'middle')}`)}
+});
+
 /* 그림은 한 번 그려서 '보고 그리기'(색)와 '따라 그리기'(점선)에 같이 씀 */
 const INK='#2B2140', R='#E5304A', B='#3D5BE0';
 const t=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.s||16}" fill="${o.f||INK}" text-anchor="${o.a||'middle'}" font-family="Jua, Gowun Dodum, sans-serif">${s}</text>`;
@@ -409,15 +525,8 @@ ves:()=>svg('0 0 360 150',`
  <circle cx="180" cy="58" r="44" fill="${B}" stroke="${INK}" stroke-width="3"/><circle cx="180" cy="58" r="36" fill="#D6DEFF" stroke="${INK}" stroke-width="2.4"/><path d="M152 40 Q170 58 174 80 M208 40 Q190 58 186 80" stroke="${INK}" stroke-width="3" fill="none"/>${t(180,124,'정맥',{s:17})}${t(180,142,'얇고 판막',{s:12,f:'#6e6488'})}
  ${Array.from({length:10},(_,i)=>{const a=i/10*Math.PI*2;return `<circle cx="${(300+22*Math.cos(a)).toFixed(1)}" cy="${(58+22*Math.sin(a)).toFixed(1)}" r="7.5" fill="#FFE3EC" stroke="${INK}" stroke-width="2"/>`}).join('')}<ellipse cx="300" cy="58" rx="8" ry="6" fill="${R}" stroke="${INK}" stroke-width="1.6"/>${t(300,124,'모세혈관',{s:17})}${t(300,142,'세포 한 겹',{s:12,f:'#6e6488'})}`),
 
-res:()=>svg('0 0 400 360',`
- <path d="M200 60 Q180 30 200 18 Q222 30 200 60" fill="#FFB29E" stroke="${INK}" stroke-width="2.5"/>
- ${tube('M200 50 L200 150',18,'#9FD8FF')}
- ${[70,86,102,118,134].map(y=>`<path d="M191 ${y} Q200 ${y+5} 209 ${y}" stroke="${INK}" stroke-width="2" fill="none"/>`).join('')}
- <path d="M190 150 Q120 140 100 200 Q86 260 104 300 Q150 320 186 296 Q194 220 190 150 Z" fill="#FF9EBB" stroke="${INK}" stroke-width="3"/>
- <path d="M210 150 Q280 140 300 200 Q314 260 296 300 Q250 320 214 296 Q206 220 210 150 Z" fill="#FF9EBB" stroke="${INK}" stroke-width="3"/>
- ${tube('M200 150 Q178 170 160 200 M160 200 L140 240 M160 200 L168 250',10,'#7CC4F5')}${tube('M200 150 Q222 170 240 200 M240 200 L260 240 M240 200 L232 250',10,'#7CC4F5')}
- ${tube('M90 330 Q200 270 310 330',14,'#FF7A7A')}
- ${L(200,40,300,30,'코')}${L(209,100,300,90,'숨관')}${L(162,198,96,176,'숨관가지','end')}${L(286,250,320,250,'폐')}${L(140,312,96,306,'가로막','end')}${L(112,250,96,244,'흉강','end')}`),
+res:()=>SITE.resp(),
+villi:()=>SITE.villi(),
 
 alv:()=>svg('0 0 360 190',`
  ${tube('M60 10 L60 60',12,'#7CC4F5')}
@@ -452,8 +561,9 @@ nep:()=>svg('0 0 680 620',`
  ${t(470,606,'↓ 오줌 (콩팥 깔때기로)',{s:18,f:'#6e6488'})}
  <defs>${[['g','#2E9E4B'],['b','#3D5BE0'],['p','#8A3FC2']].map(([i,c])=>`<marker id="${i}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="${c}"/></marker>`).join('')}</defs>`)
 };
+Object.assign(FIG,{heart:SITE.heart,ves:SITE.ves,ur:SITE.ur,alv:SITE.alv});
 const put=(id,html)=>{const e=document.getElementById(id); if(e) e.innerHTML=html;};
-[['cell','cellA','cellB'],['dig','digA','digB'],['heart','hrtA','hrtB'],['ves','vesA','vesB'],['res','resA','resB'],['alv','alvA','alvB'],['ur','urA','urB'],['nep','nepA','nepB']].forEach(([k,a,b])=>{
+[['cell','cellA','cellB'],['dig','digA','digB'],['heart','hrtA','hrtB'],['ves','vesA','vesB'],['res','resA','resB'],['villi','vilA','vilB'],['alv','alvA','alvB'],['ur','urA','urB'],['nep','nepA','nepB']].forEach(([k,a,b])=>{
   put(a,FIG[k]());
   /* 따라 그리기 쪽: 이름 글자 대신 빈 밑줄 */
   put(b,FIG[k]().replace(/<line class="keep blankline"([^>]*)stroke="transparent"/g,'<line class="keep"$1stroke="#2B2140"'));

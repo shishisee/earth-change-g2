@@ -22,7 +22,7 @@ const RENAME={'기관':'숨관','기관지':'숨관가지','횡격막':'가로�
 SYS.cell={name:'0번 방 · 세포호흡이 뭐야?',em:'🔥',color:'#FF9DB8',mouth:true,organs:[],seq:[],sub:''};
 SYS.fin={name:'최종 방',em:'🏆',color:'#FFD04D',mouth:true,organs:[],seq:[],sub:''};
 document.head.insertAdjacentHTML('beforeend',`<style>
-body{word-break:keep-all;overflow-wrap:break-word}
+body{word-break:keep-all;overflow-wrap:normal;line-break:strict}
 #scrSys.bmode #body{max-height:44vh;width:auto;margin:0 auto}
 #scrSys.nostage .stage{display:none}
 .tab.lockt{opacity:.45}
