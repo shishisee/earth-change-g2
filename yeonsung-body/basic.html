@@ -16,6 +16,7 @@ window.__APP=fetch('/app',{cache:'no-store'}).then(function(r){return r.text()})
 <div id="boot">🫀 연성이를 불러오는 중…</div>
 <script src="/basic-rooms.js"></script>
 <script src="/basic-patch.js"></script>
+<script src="/basic-fig.js"></script>
 <script>
 /* 원래 사이트(/app)를 받아 그대로 띄우고, 그 위에 기초 탐험(basic-patch.js)을 얹는다 */
 window.__APP.then(function(html){
