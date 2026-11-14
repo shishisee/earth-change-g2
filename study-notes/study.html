@@ -203,8 +203,8 @@ td.blk{min-width:5em}
   <h2><i>②</i>핵심 정리</h2>
   <ol class="pts">
     <li>소화관: 입 → 식도 → 위 → 작은창자 → 큰창자 → 항문 (간 · 쓸개 · 이자는 소화액만 보냄)</li>
-    <li>입: 침 속 <b>아밀레이스</b>가 녹말을 엿당으로 분해한다.</li>
-    <li>위: 위액 속 <b>펩신</b>이 단백질을 분해하기 시작한다. 염산은 세균을 없앤다.</li>
+    <li>입: 침 속 <b>아밀레이스</b>가 녹말을 <b>포도당 중간체</b>로 분해한다.</li>
+    <li>위: 위액 속 <b>펩신</b>이 단백질을 <b>아미노산 중간체</b>로 분해한다. 염산은 세균을 없앤다.</li>
     <li>쓸개즙: <b>간</b>에서 만들고 <b>쓸개</b>에 저장한다. 효소는 없고 지방을 작은 알갱이로 만든다.</li>
     <li>이자액: <b>아밀레이스 · 트립신 · 라이페이스</b>가 모두 들어 있다.</li>
     <li>작은창자: 소화가 끝나고 <b>융털</b>에서 흡수한다. 큰창자: 효소 없음, 물 흡수.</li>
@@ -635,7 +635,7 @@ function digChart(isBlank,sh){
   const COL=[{n:'입',x:104,w:136,c:'#FFE6EE'},{n:'위',x:240,w:120,c:'#FFF0F3'},{n:'작은창자',x:360,w:250,c:'#FFF3E3'}];
   const colName=x=>x<240?'입':x<360?'위':'작은창자';
   const ROWS=[
-    {n:'녹말',c:'#FFE58A',y:112,mid:{x:300,t:'엿당'},chips:[{x:172,t:'아밀레이스',s:'침'},{x:426,t:'아밀레이스',s:'이자액'},{x:546,t:'탄수화물 소화 효소',s:'작은창자',sm:1}],end:'포도당'},
+    {n:'녹말',c:'#FFE58A',y:112,mid:{x:300,t:'포도당 중간체'},chips:[{x:172,t:'아밀레이스',s:'침'},{x:426,t:'아밀레이스',s:'이자액'},{x:546,t:'탄수화물 소화 효소',s:'작은창자',sm:1}],end:'포도당'},
     {n:'단백질',c:'#FFC9D6',y:196,chips:[{x:300,t:'펩신',s:'위액'},{x:426,t:'트립신',s:'이자액'},{x:546,t:'단백질 소화 효소',s:'작은창자',sm:1}],end:'아미노산'},
     {n:'지방',c:'#D9F0FF',y:280,chips:[{x:426,t:'쓸개즙',s:'알갱이로',dash:1,keep:1},{x:546,t:'라이페이스',s:'이자액'}],end:'지방산 +|모노글리세리드'}];
   const k=sid(sh), num=t=>{ cnt[k]=(cnt[k]||0)+1; (keys[k]=keys[k]||[]).push(t); return cnt[k]; };
@@ -648,7 +648,7 @@ function digChart(isBlank,sh){
     b+=`<rect x="10" y="${y-20}" width="84" height="40" rx="20" fill="${r.c}" stroke="${INK2}" stroke-width="2.5"/>${tx(52,y+6,r.n,{s:18})}`;
     const items=[...r.chips.map(c=>({...c,kind:'chip'})),...(r.mid?[{...r.mid,kind:'mid'}]:[])].sort((p,q)=>p.x-q.x);
     items.forEach(c=>{
-      if(c.kind==='mid'){ b+=`<rect x="${c.x-26}" y="${y-13}" width="52" height="26" rx="6" fill="#fff"/>`+tx(c.x,y+6,c.t,{s:15,f:'#6e6488'}); steps.push(`<span class="s"><i>→</i><em class="mid">${c.t}</em></span>`); return; }
+      if(c.kind==='mid'){ b+=`<rect x="${c.x-50}" y="${y-13}" width="100" height="26" rx="6" fill="#fff"/>`+tx(c.x,y+6,c.t,{s:14,f:'#6e6488'}); steps.push(`<span class="s"><i>→</i><em class="mid">${c.t}</em></span>`); return; }
       const w=112,h=48, hide=isBlank&&!c.keep;
       b+=`<rect x="${c.x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="10" fill="#fff" stroke="${INK2}" stroke-width="2" ${c.dash?'stroke-dasharray="6 4"':''}/>`;
       let lab;

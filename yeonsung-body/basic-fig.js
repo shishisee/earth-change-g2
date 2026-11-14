@@ -40,9 +40,18 @@ function run(){
     try{ f.innerHTML=fig(k); f.classList.add('appfig'); }catch(e){}
   });
 }
+/* 낱말 바꾸기: 엿당 → 포도당 중간체, 단백질 중간 산물 → 아미노산 중간체 */
+var WORDS=[['당(엿당·포도당)','당(포도당 등)'],['엿당으로','포도당 중간체로'],['엿당','포도당 중간체'],['작아진 단백질','아미노산 중간체'],['작게 분해','아미노산 중간체']];
+function fixW(v){ if(typeof v==='string'){ WORDS.forEach(function(w){ v=v.split(w[0]).join(w[1]); }); return v; }
+  if(Array.isArray(v)) return v.map(fixW);
+  if(v&&typeof v==='object'){ Object.keys(v).forEach(function(k){ v[k]=fixW(v[k]); }); return v; } return v; }
+var origRooms=window.__BASIC_ROOMS;
+if(origRooms) window.__BASIC_ROOMS=function(){ return fixW(origRooms.apply(this,arguments)); };
 var orig=window.__BASIC;
 window.__BASIC=function(){
   orig.apply(this,arguments);
+  /* 작은 기관 그림(심장 · 위 · 폐 · 콩팥 썸네일)이 칸 높이에 맞게 */
+  document.head.insertAdjacentHTML('beforeend','<style>.art div[style*="height:5"]>svg{height:100%;width:auto;max-width:100%;display:block;margin:0 auto}</style>');
   run(); new MutationObserver(run).observe(document.body,{childList:true,subtree:true});
 };
 })();
